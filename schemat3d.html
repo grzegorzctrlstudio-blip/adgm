@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="pl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07182a"><meta name="robots" content="noindex,nofollow">
+<title>CTRLstudio ADGM | Symulacja 3D z rzutu</title>
+<style>
+:root{color-scheme:dark;--glass:#0b1d30df;--line:#6284a75f;--txt:#eef6ff;--mute:#a6bfd5;--blue:#66b8ff}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:#061624;color:var(--txt);font:13px/1.45 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button{font:inherit;cursor:pointer}.app{position:relative;min-height:650px;height:100vh;overflow:hidden;background:radial-gradient(circle at 50% 35%,#11344a,#061624 68%)}
+canvas#scene{width:100%;height:100%;display:block;touch-action:none;cursor:grab;position:absolute;inset:0;z-index:1}
+#still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.07) saturate(1.06);opacity:.62;z-index:0;transform:scale(1.03)}
+#still.hide{display:none}
+.top{position:absolute;left:20px;right:20px;top:18px;z-index:4;display:flex;align-items:flex-start;gap:12px;justify-content:space-between;pointer-events:none}
+.top>*{pointer-events:auto}
+.brand{border:1px solid #466a8b72;border-radius:13px;padding:13px 16px;background:linear-gradient(135deg,#071a2eef,#0d2a40e5);box-shadow:0 6px 22px #0003;max-width:430px}
+.eyebrow{font-size:10px;font-weight:800;letter-spacing:.16em;color:#94c4f0;display:flex;align-items:center;gap:8px}
+.eyebrow:before{content:"";width:7px;height:7px;background:#69d6ac;box-shadow:0 0 12px #69d6ac;border-radius:50%}
+.brand h1{margin:5px 0 1px;font-size:19px;line-height:1.2;letter-spacing:-.02em}
+.brand p{color:#b4c9db;font-size:11px;margin:4px 0 0}
+.top-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.btn{background:#0b2542e6;border:1px solid #57749191;border-radius:9px;color:#e9f4ff;padding:10px 12px;white-space:nowrap;backdrop-filter:blur(14px);font-weight:650}
+.btn:hover,.btn:focus-visible{background:#1d4c77;border-color:#9dcbf4}
+.btn.primary{background:#235b91;border-color:#549bda}.btn.primary.on{background:#157b87;border-color:#4ee1df}
+.btn:focus-visible,.zone:focus-visible{outline:2px solid #c0e2ff;outline-offset:2px}
+.zones{position:absolute;z-index:4;top:150px;left:20px;display:flex;flex-direction:column;gap:7px;width:188px}
+.zone{display:flex;align-items:center;gap:10px;text-align:left;background:#071b2cd9;color:#dfedf7;border:1px solid #5b78915e;padding:10px 11px;border-radius:10px;backdrop-filter:blur(14px);font-weight:700;min-height:48px}
+.zone span{width:27px;height:27px;border-radius:7px;display:grid;place-items:center;background:#264561;color:#c1def9;flex:none;font-size:11px}
+.zone.selected{background:#21527feb;border-color:#77baf2;box-shadow:inset 3px 0 #7ec9ff}
+.zone:hover{border-color:#8eb4de;background:#173958}
+.bottom{position:absolute;z-index:4;left:20px;right:20px;bottom:16px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;pointer-events:none}
+.bottom>*{pointer-events:auto}
+.legend{max-width:500px;background:#071b2de9;border:1px solid var(--line);padding:13px 15px;border-radius:11px;backdrop-filter:blur(12px);box-shadow:0 6px 25px #0003}
+.legend strong{font-size:12px}.legend p{font-size:11px;line-height:1.55;color:#aac0d4;margin:5px 0 0}
+.telemetry{font:11px/1.5 ui-monospace,"SFMono-Regular",Consolas,monospace;color:#b4d7f0;background:#061724df;border:1px solid var(--line);padding:12px 15px;border-radius:10px;min-width:190px}
+.telemetry b{color:#fff}
+.hint{position:absolute;z-index:3;right:22px;top:87px;text-align:right;background:#071a2bad;border:1px solid #4d718a55;border-radius:9px;padding:9px 12px;color:#bcd0e4;font-size:11px}
+.splash{position:absolute;inset:0;z-index:3;display:grid;place-items:center;pointer-events:none;background:#06162455;transition:opacity .6s}
+.splash.fade{opacity:0}
+.splash span{background:#092339d9;color:#d8f2ff;border:1px solid #5c85a3;padding:12px 20px;border-radius:10px;letter-spacing:.07em;font-size:11px}
+.status{position:absolute;z-index:3;right:22px;top:135px;color:#8dcaed;font-size:10px;letter-spacing:.1em}
+@media(max-width:900px){.top{left:11px;right:11px;top:11px}.brand{padding:11px 12px}.brand h1{font-size:16px}.zones{left:10px;top:auto;bottom:146px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(340px,calc(100% - 20px));gap:5px}.zone{padding:7px;min-height:38px;font-size:11px}.zone span{width:23px;height:23px}.bottom{bottom:8px;left:10px;right:10px}.telemetry{display:none}.legend{max-width:none}.hint{top:100px;right:11px}.status{display:none}.top-actions .btn{padding:8px 9px;font-size:11px}}
+@media(max-width:530px){.app{min-height:560px}.top{flex-wrap:wrap}.top-actions{justify-content:flex-start}.brand{max-width:none;width:100%}.hint{top:154px}.zones{bottom:139px;width:calc(100% - 20px)}.legend{font-size:10px;padding:8px 10px}.legend p{font-size:10px}}
+</style></head>
+<body><main class="app" id="app">
+<img id="still" alt="Uproszczony podkład z dostarczonego rzutu dzielnicy" />
+<canvas id="scene" aria-label="Obracany model 3D wykonany na podstawie przesłanego schematu"></canvas>
+<div class="splash" id="splash"><span>INICJALIZACJA SCENY 3D / CTRLstudio</span></div>
+<div class="top"><div class="brand"><div class="eyebrow">CTRLstudio / ADGM / PREVIS</div><h1>Symulacja układu dzielnicy</h1><p>Podkład z dostarczonego rzutu · bryły 3D i ruch kamery</p></div>
+<div class="top-actions">
+<button type="button" class="btn primary" id="play" aria-pressed="false">▶ Rozpocznij przelot</button>
+<button type="button" class="btn" id="top">⊞ Rzut z góry</button>
+<button type="button" class="btn" id="overview">◈ Panorama</button>
+<button type="button" class="btn" id="speed">Prędkość 1×</button>
+<button type="button" class="btn" id="full">⛶</button>
+</div></div>
+<div class="zones" role="group" aria-label="Nawigacja po strefach">
+<button type="button" class="zone selected" data-zone="all"><span>◈</span> Cały schemat</button>
+<button type="button" class="zone" data-zone="M"><span>01</span> Al Maryah</button>
+<button type="button" class="zone" data-zone="T"><span>02</span> Marina Square</button>
+<button type="button" class="zone" data-zone="S"><span>03</span> Shams Abu Dhabi</button>
+<button type="button" class="zone" data-zone="N"><span>04</span> Najmat Abu Dhabi</button>
+</div>
+<div class="hint">Przeciągnij: obrót &nbsp; · &nbsp; Scroll: zbliżenie</div>
+<div class="status" id="renderstate">MODEL POGŁĄDOWY / NIE GIS</div>
+<div class="bottom"><div class="legend"><strong>Rekonstrukcja schematyczna 2.5D + bryły</strong>
+<p>Układ pochodzi z przesłanego obrazu. Budynki, wysokości, strefy i ruch są <b>przybliżone</b>. To test kompozycji i kamery, nie poprawny geodezyjnie model ani fotogrametria. Podkład jest celowo uproszczony dla płynnej animacji.</p></div>
+<div class="telemetry">TRYB: <b id="mode">ORBIT / MANUAL</b><br>STREFA: <b id="zoneName">WSZYSTKIE</b><br>RUCH: <b>SYMULOWANY</b><br>BRYŁY: <b id="buildings">—</b></div>
+</div>
+</main>
+<script src="./schemat-plan.js?v=1"></script>
+<script>document.querySelector('#still').src=window.CTRL_ADGM_PLAN||'';window.__ADGM_SCHEMAT_READY=false;setTimeout(function(){if(!window.__ADGM_SCHEMAT_READY){document.querySelector('#splash').classList.add('fade');document.querySelector('#renderstate').textContent='PODGLĄD 2D / BRAK WEBGL';const pic=document.querySelector('#still');pic.style.animation='idle-map 16s ease-in-out infinite alternate';const style=document.createElement('style');style.textContent='@keyframes idle-map{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.22) translate(-2%,1%)}}';document.head.appendChild(style);document.querySelector('#play').textContent='Podgląd 2D / brak WebGL';}},6000);</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+try{
+const $=s=>document.getElementById(s), app=$('app'), canvas=$('scene');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance',preserveDrawingBuffer:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.6));
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.35;
+const scene=new THREE.Scene();
+scene.background=new THREE.Color('#061b30');
+scene.fog=new THREE.FogExp2('#061b30',.0015);
+const camera=new THREE.PerspectiveCamera(47,1,.1,1600);
+camera.position.set(72,106,127);
+const controls=new OrbitControls(camera,canvas);
+controls.enableDamping=true;controls.dampingFactor=.075;controls.maxPolarAngle=Math.PI*.48;
+controls.minDistance=7;controls.maxDistance=330;controls.target.set(0,0,0);controls.update();
+const W=206,H=107.6;
+function loc(x,y){return new THREE.Vector3((x/2048-.5)*W,0,(y/1070-.5)*H);}
+const matWater=new THREE.MeshStandardMaterial({color:'#123e55',metalness:.22,roughness:.43});
+const sea=new THREE.Mesh(new THREE.PlaneGeometry(650,440),matWater);sea.rotation.x=-Math.PI/2;sea.position.y=-.17;scene.add(sea);
+const tex=new THREE.TextureLoader().load(window.CTRL_ADGM_PLAN);
+tex.colorSpace=THREE.SRGBColorSpace;tex.magFilter=THREE.LinearFilter;tex.minFilter=THREE.LinearMipmapLinearFilter;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
+const earth=new THREE.Mesh(new THREE.PlaneGeometry(W,H),new THREE.MeshStandardMaterial({map:tex,roughness:1,metalness:0,side:THREE.DoubleSide}));
+earth.rotation.x=-Math.PI/2;earth.receiveShadow=true;earth.position.y=0;scene.add(earth);
+scene.add(new THREE.HemisphereLight(0xe2eeff,0x294557,2.0));
+const sun=new THREE.DirectionalLight(0xffd9ac,2.5);sun.position.set(-92,155,-64);scene.add(sun);
+const fill=new THREE.DirectionalLight(0x8fcfff,.65);fill.position.set(85,70,80);scene.add(fill);
+const BASE={M:'#d6b37f',T:'#62bcb9',S:'#71aaf0',N:'#e1a07e'};
+const Z={
+ M:{name:'Al Maryah Island',x:215,y:635,r:29},
+ T:{name:'Marina Square',x:555,y:698,r:29},
+ S:{name:'Shams Abu Dhabi',x:840,y:280,r:36},
+ N:{name:'Najmat Abu Dhabi',x:1510,y:555,r:48}
+};
+const groups={M:[],T:[],S:[],N:[]};
+const allBuildingMeshes=[];
+const glassMat={};
+for(const [k,col] of Object.entries(BASE))glassMat[k]=new THREE.MeshStandardMaterial({color:col,roughness:.35,metalness:.43,transparent:true,opacity:.93});
+const roofMat=new THREE.MeshStandardMaterial({color:0xd9ddd5,roughness:.78,metalness:.08});
+const footprint=new THREE.BoxGeometry(1,1,1);
+const edgeGeometry=new THREE.EdgesGeometry(footprint);
+function rand(seed){let a=seed>>>0;return ()=>{a=(1664525*a+1013904223)>>>0;return a/4294967296;};}
+const random=rand(440733);
+function addBox(px,py,width,depth,height,zone,ang=0){
+ const p=loc(px,py);const b=new THREE.Mesh(footprint,glassMat[zone].clone());
+ b.position.set(p.x,height/2+.34,p.z);b.scale.set(width,Math.max(.3,height),depth);b.rotation.y=ang;
+ b.userData.zone=zone;b.userData.originalOpacity=.93;
+ b.material.color.offsetHSL((random()-.5)*.05,(random()-.5)*.07,(random()-.5)*.16);
+ scene.add(b);groups[zone].push(b);allBuildingMeshes.push(b);
+ const roof=new THREE.Mesh(new THREE.BoxGeometry(width*1.02,.1,depth*1.02),roofMat);
+ roof.position.set(p.x,height+.37,p.z);roof.rotation.y=ang;scene.add(roof);
+ b.userData.roof=roof;return b;
+}
+function cluster(cx,cy,count,spreadX,spreadY,maxH,zone,seed){
+ const rng=rand(seed);
+ for(let j=0;j<count;j++){
+   const x=cx+(rng()-.5)*spreadX,y=cy+(rng()-.5)*spreadY;
+   if(x<30||x>2030||y<25||y>1040)continue;
+   const width=1.15+rng()*2.35,depth=1.3+rng()*2.4,hh=1.8+Math.pow(rng(),1.1)*maxH;
+   addBox(x,y,width,depth,hh,zone,(rng()-.5)*.5);
+ }
+}
+cluster(155,555,22,245,280,9,'M',145);
+cluster(125,895,12,245,240,7,'M',225);
+cluster(568,689,26,300,210,10,'T',505);
+cluster(620,115,30,370,195,12,'S',611);
+cluster(828,318,17,315,195,9,'S',844);
+cluster(1035,675,18,340,215,8,'N',945);
+cluster(1620,637,7,380,215,4,'N',1125);
+cluster(1260,377,8,230,165,5,'N',1142);
+addBox(570,108,4.4,3.2,18,'S',-.07);
+addBox(655,125,4.1,3.3,16.8,'S',.09);
+addBox(775,332,5.2,4.0,14,'S',.04);
+addBox(833,338,4.1,3.7,13,'S',-.11);
+addBox(1090,663,4.6,3.2,9.7,'N',.14);
+addBox(477,700,3.7,3.3,12,'T',-.18);
+addBox(545,660,3.4,3.3,10.4,'T',.1);
+// Curved landmark podium. This approximates a visible architectural gesture, not a specific verified building.
+for(let k=0;k<13;k++){
+ const a=-.25+k/12*1.8;
+ addBox(1011+125*Math.cos(a),377+83*Math.sin(a),2.1,3.1,5.4+Math.sin(a)*1.7,'S',-a);
+}
+// Large low-rise massings from the plan.
+addBox(817,660,17,9,1.8,'T',-.14);
+addBox(993,405,12,4,2.3,'S',-.08);
+addBox(1440,427,8,8,1.2,'N',.06);
+const padLine=(pts,color,opacity=.45)=>{
+ const path=pts.map(p=>{const q=loc(p[0],p[1]);q.y=.48;return q;});
+ const curve=new THREE.CatmullRomCurve3(path);
+ const geom=new THREE.BufferGeometry().setFromPoints(curve.getPoints(100));
+ const line=new THREE.Line(geom,new THREE.LineBasicMaterial({color,transparent:true,opacity,depthTest:false}));
+ scene.add(line);return curve;
+};
+const paths=[
+ padLine([[140,390],[355,478],[522,550],[745,580],[1020,575],[1190,624]],0x72f1ff,.63),
+ padLine([[435,122],[550,188],[635,302],[760,425],[946,515]],0xa2efff,.42),
+ padLine([[988,605],[1170,560],[1420,585],[1630,689],[1860,745]],0xa6bafe,.35)
+];
+const cars=[];
+for(let i=0;i<12;i++){
+ const color=i%3===0?0xffd69d:0x82d2f9;
+ const m=new THREE.Mesh(new THREE.BoxGeometry(.44,.16,.70),new THREE.MeshBasicMaterial({color}));
+ scene.add(m);cars.push({mesh:m,curve:paths[i%paths.length],progress:i/12,rate:.027+(i%5)*.005});
+}
+// Four broad area indicators (schematic circles only).
+const rings={};
+for(const [id,z] of Object.entries(Z)){
+ const center=loc(z.x,z.y);
+ const ring=new THREE.Mesh(new THREE.RingGeometry(z.r*.78,z.r*.81,80),new THREE.MeshBasicMaterial({color:BASE[id],side:THREE.DoubleSide,transparent:true,opacity:.5,depthWrite:false}));
+ ring.rotation.x=-Math.PI/2;ring.position.set(center.x,.26,center.z);scene.add(ring);rings[id]=ring;
+}
+let selected='all',playing=false,speed=1,flightStart=0,lastTime=performance.now(),tween=null,flightSegment=-1;
+const milestones=[
+ {id:'M',pos:[-71,44,91],look:loc(215,635)},
+ {id:'T',pos:[-28,38,65],look:loc(555,698)},
+ {id:'S',pos:[-10,51,-5],look:loc(840,280)},
+ {id:'N',pos:[84,52,62],look:loc(1510,555)},
+ {id:'all',pos:[72,106,127],look:new THREE.Vector3(0,0,0)}
+];
+function mark(id){
+ selected=id;
+ document.querySelectorAll('[data-zone]').forEach(x=>{x.classList.toggle('selected',x.dataset.zone===id);x.setAttribute('aria-pressed',String(x.dataset.zone===id));});
+ for(const [zone,meshes] of Object.entries(groups))for(const m of meshes){
+  const on=id==='all'||zone===id;
+  m.material.opacity=on?.93:.25;m.userData.roof.visible=on;
+ }
+ for(const [k,v] of Object.entries(rings)){v.material.opacity=id==='all'?.34:(id===k?.86:.1);}
+ $('zoneName').textContent=id==='all'?'WSZYSTKIE':Z[id].name.toUpperCase();
+}
+function cameraTo(pos,target,duration=1100){
+ tween={begin:performance.now(),duration,from:camera.position.clone(),to:new THREE.Vector3(...pos),old:controls.target.clone(),target:target.clone()};
+}
+function goZone(id){
+ playing=false;flightSegment=-1;updatePlay();
+ mark(id);
+ if(id==='all')cameraTo([72,106,127],new THREE.Vector3(0,0,0),1250);
+ else{const point=loc(Z[id].x,Z[id].y);cameraTo([point.x+18,47,point.z+41],point,1100);}
+}
+function updatePlay(){
+ $('play').classList.toggle('on',playing);
+ $('play').setAttribute('aria-pressed',String(playing));
+ $('play').textContent=playing?'Ⅱ Zatrzymaj przelot':'▶ Rozpocznij przelot';
+ $('mode').textContent=playing?'CINEMATIC FLYOVER':'ORBIT / MANUAL';
+}
+$('play').addEventListener('click',()=>{
+ playing=!playing;tween=null;
+ if(playing){flightStart=performance.now();flightSegment=-1;}
+ updatePlay();
+});
+document.querySelectorAll('[data-zone]').forEach(b=>b.addEventListener('click',()=>goZone(b.dataset.zone)));
+$('overview').addEventListener('click',()=>goZone('all'));
+$('top').addEventListener('click',()=>{playing=false;updatePlay();tween=null;mark('all');cameraTo([.01,165,.01],new THREE.Vector3(0,0,0),1300);});
+$('speed').addEventListener('click',()=>{speed=speed===1?1.5:speed===1.5?2:.5; if(speed===.5){}else if(speed===2){}; $('speed').textContent='Prędkość '+speed+'×';});
+$('full').addEventListener('click',()=>{if(document.fullscreenElement)document.exitFullscreen?.();else app.requestFullscreen?.();});
+controls.addEventListener('start',()=>{playing=false;tween=null;updatePlay();});
+function resize(){const r=app.getBoundingClientRect();if(r.width&&r.height){camera.aspect=r.width/r.height;camera.updateProjectionMatrix();renderer.setSize(r.width,r.height,false);}}
+if(window.ResizeObserver)new ResizeObserver(resize).observe(app);window.addEventListener('resize',resize);resize();
+$('buildings').textContent=String(allBuildingMeshes.length);
+let first=true;
+function frame(t){
+ requestAnimationFrame(frame);
+ const dt=Math.min(.1,(t-lastTime)/1000||0);lastTime=t;
+ for(const c of cars){
+   c.progress=(c.progress+dt*c.rate)%1;
+   const p=c.curve.getPointAt(c.progress),next=c.curve.getPointAt((c.progress+.002)%1);
+   c.mesh.position.copy(p);c.mesh.position.y=.73;
+   c.mesh.rotation.y=Math.atan2(next.x-p.x,next.z-p.z);
+ }
+ if(playing){
+   const duration=4200/speed;
+   const phase=(t-flightStart)/duration,idx=Math.floor(phase)%milestones.length;
+   if(idx!==flightSegment){flightSegment=idx;mark(milestones[idx].id);}
+   const a=milestones[idx],b=milestones[(idx+1)%milestones.length],f=phase-Math.floor(phase);
+   const q=f*f*(3-2*f);
+   camera.position.lerpVectors(new THREE.Vector3(...a.pos),new THREE.Vector3(...b.pos),q);
+   controls.target.lerpVectors(a.look,b.look,q);
+ }else if(tween){
+   const f=Math.min(1,(t-tween.begin)/tween.duration),q=f*f*(3-2*f);
+   camera.position.lerpVectors(tween.from,tween.to,q);
+   controls.target.lerpVectors(tween.old,tween.target,q);
+   if(f>=1)tween=null;
+ }
+ controls.update();renderer.render(scene,camera);
+ if(first){first=false;window.__ADGM_SCHEMAT_READY=true;$('still').classList.add('hide');$('splash').classList.add('fade');$('renderstate').textContent='WEBGL 3D / OBRAZ REFERENCYJNY';setTimeout(()=>$('splash').remove(),850);}
+}
+mark('all');requestAnimationFrame(frame);
+}catch(err){console.error('Schemat WebGL unavailable',err);document.querySelector('#renderstate').textContent='PODGLĄD 2D / WEBGL NIEDOSTĘPNE';}
+</script></body></html>
