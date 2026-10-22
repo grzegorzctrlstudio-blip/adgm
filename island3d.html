@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#071522">
 <title>CTRLstudio · ADGM | Interaktywny model 3D</title>
 <meta name="description" content="Interaktywny, roboczy model 3D czterech stref ADGM: wybór stref, budynków, widoków kamery i opisów.">
-<link rel="stylesheet" href="./island3d.css?v=1">
+<link rel="stylesheet" href="./island3d.css?v=2">
 </head>
 <body>
 <header class="site-header">
@@ -91,13 +91,21 @@
     </div>
   </aside>
 </main>
-<script src="./research-data.js?v=1"></script>
+<script src="./research-data.js?v=2"></script>
+<script src="./island3d-fallback.js?v=2"></script>
+<script>
+/* Safari / iOS fallback: if the WebGL renderer fails to paint, launch the Canvas 3D viewer. */
+window.__ADGM_START_WATCHDOG=setTimeout(function(){
+  if(!window.__ADGM_FALLBACK_RUNNING && !document.querySelector('#loading.ready')){
+    window.ADGMFallback?.start('WebGL start timeout');
+  }
+},7000);
+</script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <script type="module">
-import("./island3d.js?v=1").catch(err=>{
-  console.error("ADGM 3D:",err);
-  const el=document.getElementById("loading");
-  if(el)el.innerHTML='<div class="loading-title">Nie udało się uruchomić WebGL</div><div class="loading-sub">Sprawdź połączenie internetowe i obsługę WebGL. <a href="./index.html">Otwórz atlas 2D →</a></div>';
+import("./island3d.js?v=2").catch(err=>{
+  console.error("ADGM WebGL renderer failed; launching Canvas 3D compatibility mode:",err);
+  window.ADGMFallback?.start(err?.message||"Module import failed");
 });
 </script>
 </body>
