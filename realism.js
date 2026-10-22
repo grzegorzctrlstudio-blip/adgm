@@ -25,7 +25,7 @@ uniforms:{top:{value:new THREE.Color('#417b9d')},horizon:{value:new THREE.Color(
 vertexShader:'varying vec3 vDir; void main(){vDir=position; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
 fragmentShader:'uniform vec3 top;uniform vec3 horizon;varying vec3 vDir;void main(){float h=clamp(normalize(vDir).y,0.,1.);vec3 col=mix(horizon,top,pow(h,.53));gl_FragColor=vec4(col,1.);}'
 }));sky.frustumCulled=false;scene.add(sky);
-const water=new THREE.ShaderMaterial({
+const water=new THREE.ShaderMaterial({toneMapped:false,
 uniforms:{time:uniforms.time,day:{value:1},deep:{value:new THREE.Color('#174d67')},shallow:{value:new THREE.Color('#388999')}},
 vertexShader:'varying vec3 wPos; void main(){vec4 w=modelMatrix*vec4(position,1.0);wPos=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}',
 fragmentShader:[
@@ -37,8 +37,6 @@ fragmentShader:[
 'float glint=pow(max(0.,wave*.65+fine*.35),11.)*.22;',
 'vec3 color=mix(deep,shallow,.27+wave*.06)+vec3(.9,.75,.51)*glint*day;',
 'gl_FragColor=vec4(color,1.);',
-'#include <tonemapping_fragment>',
-'#include <colorspace_fragment>',
 '}'].join('\n')
 });
 sea.material=water;sea.geometry.dispose();sea.geometry=new THREE.PlaneGeometry(2400,2400);sea.position.y=-.24;
