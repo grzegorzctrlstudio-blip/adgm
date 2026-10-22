@@ -64,6 +64,7 @@ body.embed .brand-links{display:none}body.embed .frame-full{display:none}body.em
 <div class="top-actions">
 <button type="button" class="btn primary" id="play" aria-pressed="false">▶ Rozpocznij przelot</button>
 <button type="button" class="btn" id="top">⊞ Rzut z góry</button>
+<button type="button" class="btn" id="reference" aria-pressed="false">▣ Pokaż rzut źródłowy</button>
 <button type="button" class="btn" id="overview">◈ Panorama</button>
 <button type="button" class="btn" id="speed">Prędkość 1×</button>
 <button type="button" class="btn" id="light">☀ Złota godzina</button>
@@ -80,11 +81,11 @@ body.embed .brand-links{display:none}body.embed .frame-full{display:none}body.em
 <div class="status" id="renderstate">MODEL POGŁĄDOWY / NIE GIS</div>
 <div class="frame-full" id="fullMapStatus">CAŁY OBSZAR / FREE ORBIT 360°</div>
 <div class="bottom"><div class="legend"><strong>PREVIS CINEMATIC · materiały PBR + oświetlenie fizyczne</strong>
-<p>Układ pochodzi z przesłanego obrazu. Budynki, wysokości, strefy i ruch są <b>przybliżone</b>. To ulepszony wizualnie model poglądowy z fasadami, cieniami, wodą i światłem filmowym, a nie dokładny fotorealistyczny skan terenu. Wymaga właściwych modeli i tekstur do realizmu produkcyjnego.</p></div>
+<p>Układ pochodzi z przesłanego obrazu. Budynki, wysokości, strefy i ruch są <b>przybliżone</b>. Bryły ustawione na podstawie widocznych zespołów na poprawionym rzucie. Cienie, woda i elewacje są symulowane. <b>To nadal nie jest model geodezyjny ani hiperrealistyczny skan.</b></p></div>
 <div class="telemetry">TRYB: <b id="mode">ORBIT / MANUAL</b><br>STREFA: <b id="zoneName">WSZYSTKIE</b><br>RUCH: <b>SYMULOWANY</b><br>BRYŁY: <b id="buildings">—</b></div>
 </div>
 </main>
-<script src="./schemat-plan.js?v=1"></script>
+<script src="./schemat-plan.js?v=2"></script>
 <script>document.querySelector('#still').src=window.CTRL_ADGM_PLAN||'';window.__ADGM_SCHEMAT_READY=false;setTimeout(function(){if(!window.__ADGM_SCHEMAT_READY){document.querySelector('#splash').classList.add('fade');document.querySelector('#renderstate').textContent='PODGLĄD 2D / BRAK WEBGL';const pic=document.querySelector('#still');pic.style.animation='idle-map 16s ease-in-out infinite alternate';const style=document.createElement('style');style.textContent='@keyframes idle-map{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.22) translate(-2%,1%)}}';document.head.appendChild(style);document.querySelector('#play').textContent='Podgląd 2D / brak WebGL';}},6000);</script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <script src="./realism.js?v=1"></script>
@@ -166,30 +167,37 @@ function cluster(cx,cy,count,spreadX,spreadY,maxH,zone,seed){
    addBox(x,y,width,depth,hh,zone,(rng()-.5)*.5);
  }
 }
-cluster(155,555,22,245,280,9,'M',145);
-cluster(125,895,12,245,240,7,'M',225);
-cluster(568,689,26,300,210,10,'T',505);
-cluster(620,115,30,370,195,12,'S',611);
-cluster(828,318,17,315,195,9,'S',844);
-cluster(1035,675,18,340,215,8,'N',945);
-cluster(1620,637,7,380,215,4,'N',1125);
-cluster(1260,377,8,230,165,5,'N',1142);
-addBox(570,108,4.4,3.2,18,'S',-.07);
-addBox(655,125,4.1,3.3,16.8,'S',.09);
-addBox(775,332,5.2,4.0,14,'S',.04);
-addBox(833,338,4.1,3.7,13,'S',-.11);
-addBox(1090,663,4.6,3.2,9.7,'N',.14);
-addBox(477,700,3.7,3.3,12,'T',-.18);
-addBox(545,660,3.4,3.3,10.4,'T',.1);
+// Manually located massing in pixels of the supplied oblique reference (2048 x 1070).
+// This is not geospatial geometry: no WGS84 transfer and no real height inference.
+cluster(535,99,15,175,139,10,'S',611);    // northern peninsula
+cluster(686,120,19,210,140,10,'S',742);
+cluster(778,326,15,206,125,11,'S',844);   // central waterfront
+cluster(890,335,9,120,116,8,'S',847);
+cluster(168,554,16,220,215,7,'M',145);   // western waterfront
+cluster(110,790,9,180,130,4,'M',225);
+cluster(554,698,18,225,160,8,'T',505);   // lower marina
+cluster(1127,654,8,182,96,7,'N',945);   // southern harbour, basin kept open
+cluster(1245,696,5,90,90,5,'N',949);
+// Dominant high-rise silhouettes and distinctive groups for camera parallax.
+addBox(555,110,3.8,3.1,15.6,'S',-.07);
+addBox(610,102,3.4,3.3,16.8,'S',.09);
+addBox(669,129,3.0,3.2,14.0,'S',-.11);
+addBox(765,329,4.3,3.6,14.3,'S',.04);
+addBox(817,343,4.0,3.5,13.2,'S',-.11);
+addBox(908,349,4.0,3.6,12.2,'S',.08);
+addBox(1090,662,4.3,3.2,8.5,'N',.14);
+addBox(487,700,3.5,3.2,11.4,'T',-.18);
+addBox(558,665,3.3,3.2,10.1,'T',.10);
+// The eastern green/bare masterplan plots remain undeveloped in this visualization.
 // Curved landmark podium. This approximates a visible architectural gesture, not a specific verified building.
 for(let k=0;k<13;k++){
  const a=-.25+k/12*1.8;
  addBox(1011+125*Math.cos(a),377+83*Math.sin(a),2.1,3.1,5.4+Math.sin(a)*1.7,'S',-a);
 }
-// Large low-rise massings from the plan.
+// Low-rise massing, including eastern civic/podium rather than invented tower forest.
 addBox(817,660,17,9,1.8,'T',-.14);
 addBox(993,405,12,4,2.3,'S',-.08);
-addBox(1440,427,8,8,1.2,'N',.06);
+addBox(1393,426,7,7,1.2,'N',.06);
 const padLine=(pts,color,opacity=.45)=>{
  const path=pts.map(p=>{const q=loc(p[0],p[1]);q.y=.48;return q;});
  const curve=new THREE.CatmullRomCurve3(path);
@@ -238,6 +246,7 @@ function cameraTo(pos,target,duration=1100){
  tween={begin:performance.now(),duration,from:camera.position.clone(),to:new THREE.Vector3(...pos),old:controls.target.clone(),target:target.clone()};
 }
 function goZone(id){
+ if(sourceVisible)toggleReference(false);
  playing=false;flightSegment=-1;updatePlay();
  mark(id);
  if(id==='all')cameraTo(overviewPose(),new THREE.Vector3(0,0,0),1250);
@@ -252,6 +261,7 @@ function updatePlay(){
 window.addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.type==='ctrl-adgm-pause'){playing=false;updatePlay();}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){playing=false;updatePlay();}});
 $('play').addEventListener('click',()=>{
+ if(sourceVisible)toggleReference(false);
  playing=!playing;tween=null;
  if(playing){flightStart=performance.now();flightSegment=-1;}
  updatePlay();
@@ -261,6 +271,26 @@ $('overview').addEventListener('click',()=>goZone('all'));
 $('top').addEventListener('click',()=>{playing=false;updatePlay();tween=null;mark('all');cameraTo(topPose(),new THREE.Vector3(0,0,0),1300);});
 $('speed').addEventListener('click',()=>{speed=speed===1?1.5:speed===1.5?2:.5; $('speed').textContent='Prędkość '+speed+'×';});
 $('light').addEventListener('click',()=>{const evening=realism.toggleLight();$('light').textContent=evening?'◐ Światło dzienne':'☀ Złota godzina';});
+let sourceVisible=false;
+const originalPhoto=$('still');
+function toggleReference(next){
+ sourceVisible=next;
+ if(next){
+   playing=false;tween=null;updatePlay();
+   originalPhoto.classList.remove('hide');
+   originalPhoto.style.opacity='1';originalPhoto.style.objectFit='contain';
+   originalPhoto.style.transform='none';originalPhoto.style.filter='none';
+   canvas.style.opacity='0';canvas.style.pointerEvents='none';
+   $('mode').textContent='REFERENCJA 2D';$('renderstate').textContent='RZUT REFERENCYJNY / NIE GIS';
+ }else{
+   originalPhoto.classList.add('hide');
+   canvas.style.opacity='1';canvas.style.pointerEvents='auto';
+   $('mode').textContent='ORBIT / MANUAL';$('renderstate').textContent='SCHEMATYCZNY MODEL 3D';
+ }
+ $('reference').textContent=next?'◈ Powrót do 3D':'▣ Pokaż rzut źródłowy';
+ $('reference').setAttribute('aria-pressed',String(next));
+}
+$('reference').addEventListener('click',()=>toggleReference(!sourceVisible));
 $('full').addEventListener('click',()=>{if(document.fullscreenElement)document.exitFullscreen?.();else app.requestFullscreen?.();});
 controls.addEventListener('start',()=>{playing=false;tween=null;updatePlay();});
 let fittedInitially=false;
@@ -300,7 +330,7 @@ function frame(t){
  }
  realism.update(t);
  controls.update();renderer.render(scene,camera);
- if(first){first=false;window.__ADGM_SCHEMAT_READY=true;$('still').classList.add('hide');$('splash').classList.add('fade');$('renderstate').textContent='WEBGL 3D / OBRAZ REFERENCYJNY';setTimeout(()=>$('splash').remove(),850);}
+ if(first){first=false;window.__ADGM_SCHEMAT_READY=true;if(!sourceVisible)$('still').classList.add('hide');$('splash').classList.add('fade');$('renderstate').textContent='WEBGL 3D / OBRAZ REFERENCYJNY';setTimeout(()=>$('splash').remove(),850);}
 }
 mark('all');requestAnimationFrame(frame);
 }catch(err){console.error('Schemat WebGL unavailable',err);document.querySelector('#renderstate').textContent='PODGLĄD 2D / WEBGL NIEDOSTĘPNE';}
