@@ -127,6 +127,7 @@ function renderBuildings(){
 function setZone(id,{demo=false}={}){
   if(!demo)stopDemo();
   if(id!=='all'&&!ZONES[id])return;
+  search.value='';
   selectedZone=id;selectedCode=null;
   city.select(null);city.setZone(id);
   renderZones();renderBuildings();updateHeading();showEmptyDetails();updatePins();
@@ -203,6 +204,15 @@ function setView(name){
   fly(p.pos,p.target,1250);setActivePreset(name);
 }
 document.querySelectorAll('[data-view]').forEach(el=>el.addEventListener('click',()=>setView(el.dataset.view)));
+$('capture-btn').addEventListener('click',()=>{
+  try{
+    renderer.render(city.scene,camera);
+    const a=document.createElement('a');
+    a.download='CTRLstudio_ADGM_3D_'+(selectedCode||selectedZone)+'_'+new Date().toISOString().slice(0,10)+'.png';
+    a.href=renderer.domElement.toDataURL('image/png');
+    document.body.appendChild(a);a.click();a.remove();
+  }catch(err){console.warn('Zapis kadru niedostępny:',err);}
+});
 $('fullscreen-btn').addEventListener('click',async()=>{
   try{
     if(document.fullscreenElement)await document.exitFullscreen();
