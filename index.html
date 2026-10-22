@@ -47,9 +47,10 @@ canvas#scene{width:100%;height:100%;display:block;touch-action:none;cursor:grab;
 .splash span{background:#092339d9;color:#d8f2ff;border:1px solid #5c85a3;padding:12px 20px;border-radius:10px;letter-spacing:.07em;font-size:11px}
 .status{position:absolute;z-index:3;right:22px;top:135px;color:#8dcaed;font-size:10px;letter-spacing:.1em}
 @media(max-width:900px){.top{left:11px;right:11px;top:11px}.brand{padding:11px 12px}.brand h1{font-size:16px}.zones{left:10px;top:auto;bottom:146px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(340px,calc(100% - 20px));gap:5px}.zone{padding:7px;min-height:38px;font-size:11px}.zone span{width:23px;height:23px}.bottom{bottom:8px;left:10px;right:10px}.telemetry{display:none}.legend{max-width:none}.hint{top:100px;right:11px}.status{display:none}.top-actions .btn{padding:8px 9px;font-size:11px}}
-@media(max-width:530px){.app{min-height:560px}.top{flex-wrap:wrap}.top-actions{justify-content:flex-start}.brand{max-width:none;width:100%}.hint{top:202px}.zones{bottom:139px;width:calc(100% - 20px)}.legend{font-size:10px;padding:8px 10px}.legend p{font-size:10px}}
+@media(max-width:530px){.app{min-height:560px}.hint,.frame-full{display:none}.top{flex-wrap:wrap}.top-actions{justify-content:flex-start}.brand{max-width:none;width:100%}.hint{top:202px}.zones{bottom:139px;width:calc(100% - 20px)}.legend{font-size:10px;padding:8px 10px}.legend p{font-size:10px}}
+body.embed .brand-links{display:none}body.embed .frame-full{display:none}body.embed .brand{max-width:270px}body.embed .brand h1{font-size:16px}body.embed .top{top:9px;left:9px;right:9px}body.embed .zones{top:118px;left:9px;width:165px}body.embed .legend{max-width:350px}body.embed .telemetry{display:none}
 </style></head>
-<body><main class="app" id="app">
+<body><script>if(new URLSearchParams(location.search).get('embed')==='1')document.body.classList.add('embed');</script><main class="app" id="app">
 <img id="still" alt="Uproszczony podkład z dostarczonego rzutu dzielnicy" />
 <canvas id="scene" aria-label="Obracany model 3D wykonany na podstawie przesłanego schematu"></canvas>
 <div class="splash" id="splash"><span>INICJALIZACJA SCENY 3D / CTRLstudio</span></div>
