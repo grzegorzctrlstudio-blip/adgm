@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#071522">
+<title>CTRLstudio · ADGM | Interaktywny model 3D</title>
+<meta name="description" content="Interaktywny, roboczy model 3D czterech stref ADGM: wybór stref, budynków, widoków kamery i opisów.">
+<link rel="stylesheet" href="./island3d.css?v=1">
+</head>
+<body>
+<header class="site-header">
+  <div class="identity"><a class="brand" href="./index.html" aria-label="CTRLstudio — strona atlasu">CTRL<span>studio</span></a><span class="brand-separator"></span><span class="product-name">ADGM <strong>3D SIMULATOR</strong></span></div>
+  <nav class="header-nav" aria-label="Sekcje projektu"><a href="./index.html">Atlas i referencje</a><a class="active" href="./island3d.html" aria-current="page">Model 3D</a><a href="./research.html">Research</a></nav>
+  <div class="header-right"><span class="live-dot"></span><span>BLOCKOUT / WERSJA ROBOCZA</span></div>
+</header>
+<main class="workspace">
+  <aside class="sidebar" id="sidebar" aria-label="Wybór strefy i budynku">
+    <div class="sidebar-head">
+      <div class="kicker">NAWIGACJA PROJEKTU <span>01 / 04</span></div>
+      <h1>Wybierz strefę</h1>
+      <p>Kliknij obszar, aby przenieść kamerę. Następnie wybierz budynek z listy lub bezpośrednio na modelu.</p>
+    </div>
+    <div class="zone-list" id="zone-list" aria-label="Cztery strefy projektu"></div>
+    <div class="sidebar-divider"></div>
+    <div class="building-heading"><div><div class="kicker">KROK 02 / 04</div><h2 id="building-list-title">Wszystkie obiekty</h2></div><span class="counter" id="building-counter">27</span></div>
+    <label class="searchbox"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4.5 4.5"/></svg><input id="building-search-3d" type="search" autocomplete="off" placeholder="Znajdź budynek..." aria-label="Wyszukaj budynek"></label>
+    <div class="building-list" id="building-list"></div>
+    <div class="sidebar-footer"><span class="legend-line"><i class="legend-square"></i> Bryły i wysokości poglądowe</span><span class="legend-line"><i class="legend-circle"></i> Punkty z atlasu / lokalizacje robocze</span><p>Nie jest to model geodezyjny ani gotowa rekonstrukcja architektury. Pozycje części obiektów wymagają potwierdzenia.</p></div>
+  </aside>
+
+  <section class="viewport" id="viewport" aria-label="Interaktywna scena 3D">
+    <div class="scene" id="scene" role="img" aria-label="Trójwymiarowa, obracana scena Al Maryah Island i Al Reem Island z modelami budynków"></div>
+    <div class="labels-layer" id="labels-layer" aria-hidden="false"></div>
+    <div class="loading" id="loading"><div class="loading-orbit"><div></div></div><div class="loading-title">Budowanie modelu 3D</div><div class="loading-sub">Geometria wysp · 27 obiektów · 4 strefy</div></div>
+
+    <div class="stage-top-left"><div class="scene-kicker"><span class="pulse"></span> INTERACTIVE MASTER SCENE <span class="scene-kicker-sep">/</span> UE PREVIS</div><h2 id="scene-heading">Al Maryah + Al Reem</h2><p id="scene-subtitle">4 strefy · 27 obiektów · model koncepcyjny</p></div>
+    <div class="stage-top-right">
+      <button class="tool-btn mobile-menu" id="mobile-menu" type="button" aria-label="Otwórz listę stref">☰ <span>Strefy</span></button>
+      <button class="tool-btn" id="overview-btn" type="button" title="Pokaż całą wyspę">↗ <span>Cały obszar</span></button>
+      <button class="tool-btn" id="demo-btn" type="button" title="Automatyczny przelot przez strefy">▶ <span>Demo</span></button>
+      <button class="tool-btn icon-only" id="fullscreen-btn" type="button" title="Pełny ekran" aria-label="Pełny ekran">⛶</button>
+    </div>
+
+    <div class="scene-badge"><span class="badge-icon">◆</span><div><strong>MODEL ROBOCZY</strong><small>Geometria schematyczna · nie GIS</small></div></div>
+    <div class="compass" id="compass" aria-label="Kompas północy"><span>N</span><div class="compass-arrow">↑</div></div>
+    <div class="scene-tooltip" id="scene-tooltip" hidden></div>
+
+    <div class="bottom-controls">
+      <div class="view-bar" role="group" aria-label="Gotowe ustawienia kamery">
+        <span class="view-label">KAMERA <b>03 / 04</b></span>
+        <button class="view-btn active" type="button" data-view="overview">◈ <span>Panorama</span></button>
+        <button class="view-btn" type="button" data-view="top">⊞ <span>Rzut z góry</span></button>
+        <button class="view-btn" type="button" data-view="shams">▤ <span>Shams / skyline</span></button>
+        <button class="view-btn" type="button" data-view="waterfront">≋ <span>Waterfront</span></button>
+        <button class="view-btn" type="button" data-view="selected">◎ <span>Wybrany obiekt</span></button>
+      </div>
+      <div class="bottom-hint"><span>↔ Przeciągnij: obrót</span><span>⇅ Scroll / gest: zoom</span><span>⇧ Prawy przycisk: przesuwanie</span></div>
+    </div>
+  </section>
+
+  <aside class="detail-panel" id="detail-panel" aria-label="Opis wybranego obiektu">
+    <div class="detail-empty" id="detail-empty">
+      <div class="detail-kicker">KROK 04 / 04</div>
+      <div class="detail-illustration"><span>▥</span><span>▤</span><span>▥</span></div>
+      <h2>Informacje o budynku</h2>
+      <p>Wybierz strefę, a następnie kliknij jedną z brył 3D albo nazwę budynku na liście.</p>
+      <div class="empty-steps"><div><b>01</b> Wybór strefy</div><div><b>02</b> Wybór budynku</div><div><b>03</b> Ustawienie kamery</div><div><b>04</b> Opis i parametry</div></div>
+      <div class="tip"><strong>Przykład:</strong> Shams Abu Dhabi → Gate Towers → zbliżenie → opis trzech wież i skybridge.</div>
+    </div>
+    <div class="detail-content" id="detail-content" hidden>
+      <div class="detail-top"><div class="detail-kicker" id="detail-zone">STREFA 03 / SHAMS</div><button type="button" class="detail-close" id="detail-close" title="Zamknij opis" aria-label="Zamknij opis">×</button></div>
+      <div class="detail-hero"><div class="detail-model-icon">▥</div><span id="detail-code">S01</span></div>
+      <h2 id="detail-name">Gate Towers</h2>
+      <div class="detail-location" id="detail-location">Shams Abu Dhabi</div>
+      <div class="detail-stats">
+        <div><span>WYSOKOŚĆ</span><strong id="detail-height">238 m</strong></div>
+        <div><span>KONDYGNACJE</span><strong id="detail-floors">60</strong></div>
+        <div><span>ROK</span><strong id="detail-year">2014</strong></div>
+        <div><span>STATUS</span><strong id="detail-status">Zbudowany</strong></div>
+      </div>
+      <div class="detail-section"><h3>Charakterystyka bryły</h3><p id="detail-shape"></p></div>
+      <div class="detail-section"><h3>Położenie i kontekst</h3><p id="detail-where"></p></div>
+      <div class="detail-section"><h3>Wskazówki dla modelera</h3><p id="detail-notes"></p></div>
+      <div class="detail-meta"><div><span>DEWELOPER</span><strong id="detail-developer">—</strong></div><div><span>ARCHITEKT</span><strong id="detail-architect">—</strong></div><div><span>POZYCJA</span><strong id="detail-coords">—</strong></div></div>
+      <div class="detail-warning" id="detail-warning">Model roboczy: kształt i gabaryty są symulacją, nie zweryfikowaną geometrią.</div>
+      <div class="detail-links" id="detail-links"></div>
+      <button class="detail-focus" type="button" id="detail-focus">◎ &nbsp; Pokaż zbliżenie 3D</button>
+    </div>
+  </aside>
+</main>
+<script src="./research-data.js?v=1"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import("./island3d.js?v=1").catch(err=>{
+  console.error("ADGM 3D:",err);
+  const el=document.getElementById("loading");
+  if(el)el.innerHTML='<div class="loading-title">Nie udało się uruchomić WebGL</div><div class="loading-sub">Sprawdź połączenie internetowe i obsługę WebGL. <a href="./index.html">Otwórz atlas 2D →</a></div>';
+});
+</script>
+</body>
+</html>
