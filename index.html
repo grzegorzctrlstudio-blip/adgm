@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CTRLstudio — ADGM Abu Dhabi Reference Map</title>
+<style>
+:root{--bg:#090b0e;--panel:#11151a;--line:#242b33;--txt:#f3f5f7;--muted:#929ba5;--accent:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:Arial,Helvetica,sans-serif}
+header{padding:34px 5vw 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:24px;align-items:end}
+.brand{font-weight:800;letter-spacing:.06em}.brand span{font-weight:400;color:var(--muted)}
+h1{font-size:clamp(28px,5vw,64px);line-height:.95;margin:12px 0 0;max-width:900px}.sub{color:var(--muted);max-width:620px;line-height:1.5}
+main{padding:32px 5vw 70px}.zones{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.zone{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-height:290px}
+.zone h2{font-size:20px;margin:0 0 7px}.zone .tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+ul{list-style:none;padding:0;margin:22px 0 0}li{padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.note{margin-top:28px;padding:18px 20px;border:1px solid var(--line);border-radius:12px;color:var(--muted);line-height:1.5}
+footer{padding:20px 5vw;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+</style></head><body>
+<header><div><div class="brand">CTRLstudio <span>/ ADGM</span></div><h1>Abu Dhabi<br>Reference Map</h1></div>
+<div class="sub">Working reference for verified buildings and zones. Geometry and real-world placement are treated as source-of-truth; no invented structures.</div></header>
+<main><section class="zones">
+<article class="zone"><div class="tag">Zone 01</div><h2>Al Maryah Island</h2><ul><li>ADGM Square — Al Sila, Al Khatem, Al Sarab, Al Maqam</li><li>Al Maryah Tower</li><li>The Galleria</li><li>Cleveland Clinic Abu Dhabi</li></ul></article>
+<article class="zone"><div class="tag">Zone 02</div><h2>Al Reem / Tamouh</h2><ul><li>Tamouh</li><li>Marina Square</li><li>Addax Tower</li><li>Tamouh retail</li><li>Reem Hospital</li><li>Sorbonne University Abu Dhabi</li><li>Repton School</li></ul></article>
+<article class="zone"><div class="tag">Zone 03</div><h2>Najmat Abu Dhabi</h2><ul><li>Reem Mall</li><li>Najmat waterfront</li><li>The Wave Tower</li><li>Horizon Towers — actual location to remain geographically accurate</li></ul></article>
+<article class="zone"><div class="tag">Zone 04</div><h2>Shams Abu Dhabi</h2><ul><li>Gate Towers + The Arc</li><li>Sky Tower</li><li>Pixel — seven-building complex</li><li>Shams Boutik</li><li>Reem Central Park</li><li>Repton</li><li>Burjeel Day Surgery Center</li></ul></article>
+</section><div class="note"><b>Production rule:</b> preserve actual island geometry, roads, waterfronts, plots and building positions. Hyper-real visual treatment may change appearance only — never geography. This page is the deployment baseline; verified aerial imagery, references and interactive zone layers can be added without changing the project URL.</div></main>
+<footer>CTRLstudio © 2026 — internal project reference / ADGM Abu Dhabi</footer></body></html>
