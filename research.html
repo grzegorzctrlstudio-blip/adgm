@@ -36,7 +36,7 @@
 </nav></div>
 <main class="main">
 <section class="pane" data-pane="overview" role="tabpanel">
-<div class="sectionhead"><div><div class="eyebrow">Zakres i priorytety</div><h2>Jedna geografia. Cztery niezależne strefy.</h2><p>Referencyjny render Shams Abu Dhabi określa poziom fotorealizmu, a nie ogranicza zasięgu produkcji. Modele budynków pozostają we właściwych miejscach na mapie.</p></div><span class="smalltag">Stan roboczy · 2026</span></div>
+<div class="sectionhead"><div><div class="eyebrow">Zakres i priorytety</div><h2>Jedna geografia. Cztery niezależne strefy.</h2><p>Poprawiony rzut CGI służy do testowania kompozycji, natomiast dokładna rekonstrukcja wymaga geodezyjnego odniesienia. ADGM formalnie obejmuje Al Maryah i Al Reem od 24.04.2023 (rozszerzenie jurysdykcji). Modele muszą pozostać we właściwych miejscach na rzeczywistej mapie.</p></div><span class="smalltag"><a href="https://www.adgm.com/about/jurisdiction/" target="_blank" rel="noopener">Granice ADGM · źródło ↗</a></span></div>
 <div class="grid four">
 <a href="#buildings" class="zone-card" data-zone-jump="M"><span class="num">01</span><h3>Al Maryah Island</h3><p>ADGM Square, cztery wieże, siedziba ADGM, The Galleria i Cleveland Clinic.</p><span class="count">8 pozycji →</span></a>
 <a href="#buildings" class="zone-card" data-zone-jump="T"><span class="num">02</span><h3>Marina Square</h3><p>Marina Square oraz obiekty Al Reem przypisane w briefie, w tym Addax i Sorbonne.</p><span class="count">6 pozycji →</span></a>
@@ -112,6 +112,23 @@
 
 <section class="pane" data-pane="geodata" role="tabpanel" hidden>
 <div class="sectionhead"><div><div class="eyebrow">GIS / legal sources</div><h2>Geodane i licencje</h2><p>Georeferencja jest fundamentem sceny. Google 3D Tiles nie jest źródłem dowolnie eksportowalnych modeli budynków.</p></div></div>
+<div class="note blue" style="margin:12px 0 18px">
+<strong>Nowe źródło referencyjne / sprawdzone 22.10.2026:</strong> oficjalny katalog <strong>Abu Dhabi Spatial Data Infrastructure (AD-SDI)</strong>
+wymienia ortoobrazy WorldView-3 15 cm (2024 oraz serie 2025–2026) i usługi DSM / DTM.
+Dodatkowo publiczny katalog ArcGIS pokazuje raster <code>AD_15CMHD_Z40_P4.TIF</code> (2025)
+o zakresie długości 53.938°–55.109° E i szerokości 23.992°–24.931° N,
+obejmującym współrzędne Al Reem Island. <strong>To dowód istnienia katalogu warstwy, nie potwierdzenie prawa do eksportu ani otrzymania pliku.</strong>
+Najpierw potwierdzamy zakres, rozdzielczość rzeczywistą, aktualność i licencję dla archviz oraz UE.
+<div style="margin-top:9px"><a href="https://sdi.gov.abudhabi/sdi/Imagenarycatalogue.html" target="_blank" rel="noopener">Katalog obrazów i DSM/DTM ↗</a> ·
+<a href="https://arcgis.sdi.abudhabi.ae/agsimage/rest/services/Sat/IMG_SAT_50CM_GCS/MapServer/layers" target="_blank" rel="noopener">Warstwy ArcGIS — AD_15CM_2025 ↗</a> ·
+<a href="https://sdi.gov.abudhabi/sdi/search.html?variable=maps" target="_blank" rel="noopener">Mapa bazowa AD-SDI ↗</a> ·
+<a href="https://sdi.gov.abudhabi/sdi/opendata.html" target="_blank" rel="noopener">Dostęp / warunki danych ↗</a></div>
+</div>
+<div class="grid three" style="margin-bottom:18px">
+<div class="card"><h3>01 / ortoobrazy 15 cm</h3><p>Sprawdzić 2024 i 2025/2026 dla czterech stref, metadane pozyskania i dopuszczony produkt (WMS/WMTS/GeoTIFF). Fotografia satelitarna pomaga umieścić footprinty, ale nie dostarcza fasad.</p><p><strong>Stan:</strong> warstwa w katalogu; uprawnienia i plik niepozyskane.</p></div>
+<div class="card"><h3>02 / DSM, DTM, wysokości</h3><p>Zażądać pokrycia <strong>Al Maryah + Al Reem</strong>, pomiaru rozdzielczości pionowej, datum wysokości i daty pozyskania. Widoczny publiczny przykład DSM dotyczy Delma Island — nie potwierdza jeszcze Al Reem.</p><p><strong>Stan:</strong> usługa istnieje, pokrycie AOI niezweryfikowane.</p></div>
+<div class="card"><h3>03 / walidacja i zakup praw</h3><p>Przygotować AOI w WGS84 oraz zapytanie o użycie w komercyjnym wideo, modelach 3D, Blenderze i Unreal. Warstwy inne niż Open Data mogą wymagać zgody DGE; nie kopiować przez domniemanie.</p><p><strong>Kontakt AD-SDI:</strong> adsdi.servicedesk@dge.gov.ae</p></div>
+</div>
 <div class="grid">
 <div class="card"><h3>WGS84 i układ metryczny</h3><p>Źródła pozycji: <strong>EPSG:4326</strong>. Roboczy układ sceny: <strong>WGS84 / UTM zone 40N (EPSG:32640)</strong>. Jedna transformacja do lokalnych współrzędnych Unreal. Wysokości i datum pionowe zapisujemy oddzielnie.</p><p>Kontrola: obrysy, poziom morza, linia brzegowa, drogi, footprinty i wysokości budynków.</p></div>
 <div class="card"><h3>OSM, QGIS i dane miejskie</h3><p>OpenStreetMap do footprintów i ulic, z audytem tagów <code>height</code>, <code>building:levels</code>, <code>roof:shape</code> i <code>building:part</code>. QGIS do łączenia danych; ADSDI i urząd miasta do zapytania o licencjonowane 3D.</p><p><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">Licencja OSM ↗</a> · <a href="https://www.qgis.org/" target="_blank" rel="noopener">QGIS ↗</a> · <a href="https://www.added.gov.ae/" target="_blank" rel="noopener">Abu Dhabi — instytucje ↗</a></p></div>
@@ -126,7 +143,7 @@
 <tr><td>OpenStreetMap</td><td>Otwarte dane na ODbL, z warunkami atrybucji i udostępniania danych pochodnych</td><td>Footprinty, drogi, identyfikacja obiektów.</td><td><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">Warunki ↗</a></td></tr>
 <tr><td>Cadmapper / ADSDI</td><td>Cena i zakres niepotwierdzone</td><td>Możliwy zakup lub pozyskanie danych miejskich.</td><td><a href="https://cadmapper.com/" target="_blank" rel="noopener">Cadmapper ↗</a></td></tr>
 </tbody></table></div>
-<div class="note" style="margin-top:16px"><strong>Niezweryfikowane:</strong> pełne pokrycie Al Reem przez Google Photorealistic 3D Tiles, kompletność wysokości OSM oraz dostępność miejskiego modelu 3D ADSDI. Wymagają oddzielnego testu technicznego.</div>
+<div class="note" style="margin-top:16px"><strong>Niezweryfikowane:</strong> pełne pokrycie Al Reem przez Google Photorealistic 3D Tiles, kompletność wysokości OSM, prawo pobrania obrazu AD-SDI na potrzeby produkcji komercyjnej oraz dostępność DSM i miejskiego modelu 3D dla dokładnego obszaru ADGM. Wymagają oddzielnego testu technicznego i potwierdzenia licencji.</div>
 </section>
 
 <section class="pane" data-pane="methods" role="tabpanel" hidden>
