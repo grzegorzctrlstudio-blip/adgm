@@ -158,13 +158,25 @@ function addBox(px,py,width,depth,height,zone,ang=0){
  realism.decorate(b,roof,width,depth,height);
  b.userData.roof=roof;return b;
 }
+// Water/vegetation exclusions sampled against the user's original 2048x1070 CGI.
+// Immutable per-cluster exclusion indices ensure deterministic blockout without
+// placing simulated high-rises in obvious marina water/green pixels.
+const MASKED_CLUSTER_POINTS={
+ 844:new Set([1,2,3,4,7,8,10]),
+ 847:new Set([2,4,6,8]),
+ 145:new Set([2,13]),
+ 225:new Set([0,2,3,4,6,7,8]),
+ 505:new Set([1,5,7,9,12,16])
+};
 function cluster(cx,cy,count,spreadX,spreadY,maxH,zone,seed){
  const rng=rand(seed);
  for(let j=0;j<count;j++){
    const x=cx+(rng()-.5)*spreadX,y=cy+(rng()-.5)*spreadY;
    if(x<30||x>2030||y<25||y>1040)continue;
    const width=1.15+rng()*2.35,depth=1.3+rng()*2.4,hh=1.8+Math.pow(rng(),1.1)*maxH;
-   addBox(x,y,width,depth,hh,zone,(rng()-.5)*.5);
+   const rotation=(rng()-.5)*.5;
+   if(MASKED_CLUSTER_POINTS[seed]?.has(j))continue;
+   addBox(x,y,width,depth,hh,zone,rotation);
  }
 }
 // Manually located massing in pixels of the supplied oblique reference (2048 x 1070).
