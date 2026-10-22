@@ -41,7 +41,7 @@
     d.point = d.ll || INFERRED[d.code] || null;
     d.pointEstimated = !d.ll && !!d.point;
   }
-  const h = document.createElement('style');h.textContent = \`
+  const h = document.createElement('style');h.textContent = `
   .map{height:min(74vh,820px);min-height:520px}
   #liveMap{position:relative;width:100%;height:min(74vh,820px);min-height:520px;background:#12283a}
   .leaflet-container{font:inherit!important}
@@ -74,7 +74,7 @@
   @media(min-width:1251px){.workspace{grid-template-columns:240px minmax(400px,1fr) minmax(360px,450px)}}
   @media(max-width:1250px){.photo-frame.primary img{height:300px}}
   @media(max-width:720px){#liveMap{height:490px;min-height:470px}.viewlinks{grid-template-columns:1fr 1fr}}
-  \`;document.head.append(h);
+  `;document.head.append(h);
   const oldSelect = select;
   let leafletMap, pinsLayer, markers={};
   let labelsActive = true;
