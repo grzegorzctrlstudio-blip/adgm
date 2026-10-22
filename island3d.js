@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {createCity,ZONES,FALLBACK,CONTEXT_CODES,locationFor,toWorld} from './island3d-geometry.js';
 
+if(window.__ADGM_FALLBACK_RUNNING)throw new Error('Canvas fallback already running');
 const data=window.ADGM_RESEARCH;
 if(!data||!Array.isArray(data.buildings)||data.buildings.length!==27)throw new Error('Missing ADGM inventory (27 records)');
 const $=id=>document.getElementById(id);
