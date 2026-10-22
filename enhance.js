@@ -180,7 +180,7 @@
     iframe.src='https://www.openstreetmap.org/export/embed.html?bbox=54.395%2C24.481%2C54.407%2C24.491&layer=mapnik';
     auditImg.replaceWith(iframe);
     const p=document.querySelector('#audit p');
-    if(p)p.textContent='Mapa kontrolna Najmat (aktualny podkład OpenStreetMap) i sześć warunków geometrii. Nie przedstawia planowanych marin i wież jako istniejącej zabudowy.';
+    if(p)p.textContent='Strefa 04 — Najmat Abu Dhabi. Mapa uliczna pokazuje istniejącą okolicę; zdjęcia i informacje o obiektach znajdziesz po wybraniu strefy 04.';
   }
   const hash=decodeURIComponent(location.hash.slice(1));
   const initial=all.some(x=>x.code===hash)?hash:'M01';
