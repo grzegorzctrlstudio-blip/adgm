@@ -92,17 +92,6 @@
     const a=document.createElement('a');a.href=url;a.download='CTRLstudio_ADGM_27_obiektow.csv';document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1500);
   });
-  const rate=document.getElementById('hour-rate');
-  const out=document.getElementById('hour-rate-value');
-  const fmt=n=>Math.round(n).toLocaleString('pl-PL');
-  function recalc(){
-    const r=Number(rate.value);out.textContent=fmt(r)+' PLN/h';
-    document.querySelectorAll('[data-cost]').forEach(el=>{
-      const [lo,hi]=el.dataset.cost.split(',').map(Number);
-      el.textContent=fmt(lo*r)+' – '+fmt(hi*r)+' PLN';
-    });
-  }
-  rate.addEventListener('input',recalc);recalc();
   function fromHash(){const key=decodeURIComponent(location.hash.slice(1));show(known.has(key)?key:'overview',false,false);}
   window.addEventListener('hashchange',fromHash);
   fromHash();
