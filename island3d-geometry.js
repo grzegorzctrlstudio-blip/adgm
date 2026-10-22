@@ -394,8 +394,8 @@ export function createCity(buildings){
   let selectionBox=null;
   function setZone(active){
     for(const [id,ov] of Object.entries(zoneOverlays)){
-      ov.fill.material.opacity=(!active||active==='all')?.018:(id===active?.115:.009);
-      ov.edge.material.opacity=(!active||active==='all')?.26:(id===active?.92:.12);
+      ov.fill.material.opacity=(!active || active === 'all') ? 0.018 : (id === active ? 0.115 : 0.009);
+      ov.edge.material.opacity=(!active || active === 'all') ? 0.26 : (id === active ? 0.92 : 0.12);
     }
     for(const [code,g] of groups){
       const dim=active&&active!=='all'&&g.userData.zone!==active;
