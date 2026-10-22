@@ -143,7 +143,7 @@ function makeGeometryBuilder(scene,materials){
     return mesh;
   }
   function roof(group,x,z,w,d,y,mat='roof'){
-    return box(group,x,z,w,d,.14,mat,y,{pick:false,shadow:false});
+    return box(group,x,z,w,d,.14,mat,y,{pick:true,shadow:false});
   }
   function tower(group,x,z,w,d,h,mat='glass',opts={}){
     box(group,x,z,w,d,h,mat,.5);
@@ -233,7 +233,7 @@ function makeBuilding(scene,b,m,groups,anchors){
     case 'N02':{
       // circular marina and a small schematic pier; NOT an invented second marina.
       flatArea(group,0,0,8.1,8.1,0x14546a,.98);
-      const ring=attach(group,new THREE.RingGeometry(8.2,9.15,72),m.attach===undefined?materials.concrete:new THREE.MeshStandardMaterial({color:0xb0ac96,roughness:.95}),0,.64,0,{pick:true,shadow:false});
+      const ring=attach(group,new THREE.RingGeometry(8.2,9.15,72),new THREE.MeshStandardMaterial({color:0xb0ac96,roughness:.95}),0,.64,0,{pick:true,shadow:false});
       ring.rotation.x=-Math.PI/2;
       box(group,0,-4.5,.65,6.0,.12,'concrete',.61);
       box(group,1.8,-2.6,3.3,.55,.12,'concrete',.61);
@@ -394,8 +394,8 @@ export function createCity(buildings){
   let selectionBox=null;
   function setZone(active){
     for(const [id,ov] of Object.entries(zoneOverlays)){
-      ov.fill.material.opacity=!active?.length||active==='all'?.018:id===active?.115:.009;
-      ov.edge.material.opacity=!active?.length||active==='all'?.26:id===active?.92:.12;
+      ov.fill.material.opacity=(!active||active==='all')?.018:(id===active?.115:.009);
+      ov.edge.material.opacity=(!active||active==='all')?.26:(id===active?.92:.12);
     }
     for(const [code,g] of groups){
       const dim=active&&active!=='all'&&g.userData.zone!==active;
