@@ -36,6 +36,12 @@ function noFakeGIS(){
 function paintZonePaths(){
  const area=$('led-area-paths');
  area.innerHTML=ORDER.map(id=>'<path class="led-zpath" data-led-zone="'+id+'" d="'+esc(Z[id].ledPath)+'"></path>').join('');
+ const region=$('led-region-labels');
+ if(region)region.innerHTML=ORDER.map(id=>{
+  const z=Z[id],p={M:[28.9,39.0],T:[52.5,64.0],S:[41.8,24.0],N:[75.5,68.2]}[id];
+  return '<div class="led-region-label" data-label-zone="'+id+'" style="left:'+p[0]+'%;top:'+p[1]+'%" aria-hidden="true">'+
+    '<span class="led-region-number">'+esc(z.num)+'</span><span>'+esc(z.name)+'</span></div>';
+ }).join('');
  const map=$('tablet-area-paths');
  map.innerHTML=ORDER.map(id=>'<path class="area" data-tablet-zone="'+id+'" d="'+esc(Z[id].tabletPath)+'" role="button" tabindex="0" aria-label="Wybierz '+esc(Z[id].name)+'"></path>').join('');
  const centers={M:[163,162],T:[241,216],S:[317,148],N:[373,301]};
@@ -45,6 +51,10 @@ function updatePaths(){
  for(const el of document.querySelectorAll('[data-led-zone]')){
   el.classList.toggle('active',el.dataset.ledZone===state.zone);
   el.classList.toggle('faded',!!state.zone&&el.dataset.ledZone!==state.zone);
+ }
+ for(const el of document.querySelectorAll('[data-label-zone]')){
+  el.classList.toggle('selected',el.dataset.labelZone===state.zone);
+  el.classList.toggle('faded',!!state.zone&&el.dataset.labelZone!==state.zone);
  }
  for(const el of document.querySelectorAll('[data-tablet-zone]')){
   el.classList.toggle('chosen',el.dataset.tabletZone===state.zone);
@@ -125,9 +135,10 @@ function buildPins(){
   const btn=document.createElement('button');
   btn.type='button';btn.className='landmark';btn.dataset.marker=m.code;
   btn.style.left=m.x+'%';btn.style.top=m.y+'%';btn.style.transitionDelay=(i*145)+'ms';
-  btn.title=(record?.name||m.caption)+' — lokalizacja na CGI poglądowa';
+  btn.title=(record?.name||m.caption)+' — pozycja demonstracyjna, do georeferencji';
   btn.setAttribute('aria-label','Pokaż hotspot '+(record?.name||m.caption));
-  btn.innerHTML='<span class="landmark-pin">⌖</span><span class="landmark-name">'+esc(record?.name||m.caption)+'<small>Wybierz, aby zobaczyć szczegóły</small></span>';
+  btn.innerHTML='<span class="landmark-pin">⌖</span><span class="landmark-name">'+esc(record?.name||m.caption)+
+   '<small>'+esc(record?.code||m.code)+' · wybierz obiekt</small></span>';
   area.appendChild(btn);
  }
 }
@@ -139,6 +150,8 @@ function hidePins(){
  for(const el of $('led-marker-layer').querySelectorAll('.landmark'))el.classList.remove('show');
 }
 function showLedCallout(title,body,label){
+ const media=$('led-preview-media');
+ if(media)media.hidden=!(label?.includes('STORY')||label?.includes('BUILDING'));
  $('led-reveal').classList.add('visible');
  $('led-reveal-kicker').textContent=label||'LED / ZONE INTRO';
  $('led-reveal-title').textContent=title;
@@ -155,16 +168,17 @@ function cameraTo(id){
  scene.classList.toggle('idle',!id);
  if(!id){scene.style.transform='translate3d(0,0,0) scale(1)';return;}
  const z=Z[id],sc=z.zoom;
- const offX=(.5-z.x*sc)*100,offY=(.5-z.y*sc)*100;
+ // Scene transform-origin is center: translate by zoom * offset from target.
+ const offX=(.5-z.x)*sc*100,offY=(.5-z.y)*sc*100;
  scene.style.transform='translate3d('+offX.toFixed(3)+'%,'+offY.toFixed(3)+'%,0) scale('+sc+')';
 }
 function tabletCameraTo(id){
  const scene=$('tablet-visual');
  if(!id){scene.style.transform='translate3d(0,0,0) scale(1)';return;}
  // Tablet stays top-down (PDF p.10); subtle zoom keeps all zones legible.
- const focus={M:[.315,.45],T:[.46,.585],S:[.615,.4],N:[.715,.82]}[id];
+ const focus={M:[.28,.32],T:[.445,.47],S:[.62,.28],N:[.65,.73]}[id];
  const sc=1.17;
- const x=(.5-focus[0]*sc)*100,y=(.5-focus[1]*sc)*100;
+ const x=(.5-focus[0])*sc*100,y=(.5-focus[1])*sc*100;
  scene.style.transform='translate3d('+x.toFixed(3)+'%,'+y.toFixed(3)+'%,0) scale('+sc+')';
 }
 function clearTimers(){if(phaseTimeout){clearTimeout(phaseTimeout);phaseTimeout=null;}}
@@ -238,14 +252,14 @@ function markUserActivity(){
 }
 function stopDemo(){
  state.demo=false;if(autoTimer)clearInterval(autoTimer);autoTimer=null;
- $('tour-button').textContent='▶ Demo przelot';
+ $('tour-button').textContent='▶ Przelot demonstracyjny';
  $('ipad-view-wall').disabled=false;
 }
 function startDemo(){
  if(state.demo){stopDemo();return;}
  stopDemo();
  state.demo=true;state.autostep=0;
- $('tour-button').textContent='Ⅱ Zatrzymaj demo';
+ $('tour-button').textContent='Ⅱ Zatrzymaj przelot';
  $('led-demo-route').style.opacity=.8;
  $('tour-beacon').style.opacity=1;
  const advance=()=>{
