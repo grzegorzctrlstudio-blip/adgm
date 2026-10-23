@@ -122,3 +122,33 @@ button:focus-visible,a:focus-visible{outline:2px solid #b1ecff;outline-offset:3p
 .led-scene.idle{animation:adgm-idle-flight 25s ease-in-out infinite alternate}
 @keyframes adgm-idle-flight{0%{transform:scale(1)}50%{transform:scale(1.045) translate(.5%,-.35%)}100%{transform:scale(1.075) translate(-.8%,.15%)}}
 .map-pane .map-visual{transform-origin:0 0;transition:transform 1800ms cubic-bezier(.16,.72,.17,1);will-change:transform}
+
+/* Correct SBE top-view mapping: LED perspective district outlines and readable landmarks */
+.led-region-labels{position:absolute;inset:0;pointer-events:none;z-index:2}
+.led-region-label{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;color:#e6faff;font-size:clamp(9px,1.02vw,14px);font-weight:850;text-shadow:0 2px 9px #00152b,0 0 10px #006be2;
+ background:#041c36a8;border:1px solid #52a9ec55;border-radius:8px;padding:6px 9px;opacity:.67;transition:opacity .6s,background .5s,border-color .5s;white-space:nowrap}
+.led-region-label.selected{opacity:1;background:#074681ec;border-color:#9de9ff;box-shadow:0 0 21px #117de68a;z-index:3}
+.led-region-label.faded{opacity:.13}
+.led-region-number{display:grid;place-items:center;min-width:25px;height:25px;border:1px solid #7adeff;border-radius:50%;font-size:11px;background:#084a8f;box-shadow:0 0 10px #36aaff9a}
+.led-preview-media{height:94px;border:1px solid #376b93;border-radius:7px;background:linear-gradient(140deg,#26516da9,#061529dc),url('./assets/adgm-led-clean-hq-v8.avif') center/cover;
+ display:flex;align-items:center;justify-content:center;gap:13px;color:#e5f7ff;margin:9px 0 13px;text-shadow:0 2px 9px #00172c;font-size:11px;font-weight:800}
+.led-preview-media[hidden]{display:none}
+.led-preview-media small{font-size:9px;color:#bedaf2;font-weight:600}
+.preview-play{display:grid;place-items:center;width:38px;height:38px;flex:none;border:1px solid #92dfff;border-radius:50%;background:#0878cbdc;box-shadow:0 0 22px #299bff}
+.led-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.led-actions button{padding:8px 11px;border:1px solid #366a90;background:#092c4b;color:#d4f1ff;border-radius:7px;font-weight:770;font-size:10px;white-space:nowrap}
+.led-actions button:hover{border-color:#8deaff;background:#164d74}
+.led-actions #tour-button{border-color:#62b8ed;background:#155c91;color:#fff}
+.led-controls{flex-wrap:wrap}
+.led-facts{background:#041b30d3}
+.led-photo{filter:contrast(1.04) saturate(1.04) brightness(.94)}
+@media(max-width:900px){
+ .led-region-label{gap:4px;font-size:8px;padding:4px 5px;border-radius:5px}
+ .led-region-number{min-width:18px;height:18px;font-size:8px}
+ .led-actions button{font-size:9px;padding:6px 8px}
+}
+@media(max-width:550px){
+ .led-region-label{font-size:0;padding:2px;background:none;border-color:transparent}
+ .led-region-number{font-size:8px}
+ .led-preview-media{height:58px}
+}
