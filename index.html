@@ -76,28 +76,97 @@ header.project-header{padding:14px 15px}.project-header h1{font-size:21px}
 .player-caption{font-size:10px;gap:6px}
 }
 @media print{.project-hero{display:none}}
+
+/* 2026 unified ADGM key visual and map animation: no duplicate 3D iframe */
+.project-hero{background:#061627;padding:0 18px 18px}
+.project-hero-inner{max-width:1880px}
+.project-topline{gap:12px;padding:18px 6px 15px}
+.project-topline h2{font-size:23px;font-weight:760;color:#f5fbff}
+.project-topline p{color:#9fbcd4}
+.project-topline .hero-links{align-items:center}
+.project-topline .hero-links .hero-action{font:750 12px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;padding:12px 15px;border:1px solid #476d8e;border-radius:9px;color:#e7f6ff;background:#122e48;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;cursor:pointer}
+.project-topline .hero-links .hero-action:hover{background:#215179;border-color:#92c9f3}
+.project-topline .hero-links .hero-play{background:#21649b;border-color:#4fa8e3}
+.project-topline .hero-links .hero-play.running{background:#0e8b91;border-color:#49d9da}
+.project-player.master-visual{width:100%;height:auto;min-height:0;aspect-ratio:1672 / 941;max-height:none;overflow:hidden;border-radius:13px;border:1px solid #356687;background:#071a30;box-shadow:0 16px 43px #01081088;position:relative;cursor:default}
+.master-transform{position:absolute;inset:0;width:100%;height:100%;transform-origin:0 0;transition:transform 1500ms cubic-bezier(.23,.67,.17,.99);will-change:transform}
+.master-visual.dragging .master-transform{transition:none}
+.master-transform img{display:block;width:100%;height:100%;object-fit:fill;user-select:none;-webkit-user-drag:none}
+.master-hotspot{position:absolute;transform:translate(-50%,-50%);width:clamp(28px,4.8vw,66px);height:clamp(28px,4.8vw,66px);padding:0;margin:0;border:1px solid transparent;border-radius:50%;background:transparent;cursor:zoom-in}
+.master-hotspot:hover,.master-hotspot:focus-visible{outline:none;background:rgba(12,117,206,.13);border-color:#92ddff;box-shadow:0 0 0 7px #45aeff22,0 0 23px #19a5ffbb}
+.master-image-status{position:absolute;bottom:12px;left:13px;background:#082640ce;border:1px solid #70aada5b;color:#c9e2f5;border-radius:6px;font:800 9px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;letter-spacing:.12em;padding:7px 10px;pointer-events:none}
+.master-visual:not(.loaded) .master-transform img{opacity:0}
+.master-visual.media-error{min-height:300px}
+.master-visual.media-error .master-image-status{top:45%;bottom:auto;left:50%;transform:translate(-50%,-50%);font-size:13px}
+.master-toolbar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:13px 4px 4px}
+.master-chip{background:#0a2d4c;border:1px solid #3d6788;color:#cde2f3;border-radius:8px;padding:10px 13px;font:750 12px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.master-chip span{color:#7ecbff;margin-right:5px;font:850 11px/1.2 inherit}
+.master-chip:hover{background:#1b4a70;color:white;border-color:#7cc1ec}
+.master-chip.on{background:#21629a;border-color:#80caff;color:#fff;box-shadow:inset 0 -2px 0 #8fdaff}
+.master-chip.on span{color:#fff}
+.master-chip:focus-visible,.hero-action:focus-visible{outline:2px solid #9dddff;outline-offset:2px}
+.project-hero .player-caption{font-size:11px;color:#9bb4ca;margin:11px 4px 0}
+.project-hero .player-caption strong{color:#eaf8ff}
+.project-nav a[href="#atlas"]{scroll-margin-top:24px}
+@media(max-width:900px){
+.project-topline h2{font-size:20px}
+.master-toolbar{gap:6px}
+.master-chip{padding:8px 10px;font-size:11px}
+}
+@media(max-width:720px){
+.project-hero{padding:0 9px 14px}
+.project-player.master-visual{min-height:0;height:auto;aspect-ratio:1672/941;border-radius:9px}
+.master-image-status{bottom:5px;left:6px;padding:4px 6px;font-size:8px}
+.project-topline .hero-links{width:100%;flex-wrap:wrap}
+.project-topline .hero-links .hero-action{flex:1 1 auto;font-size:11px;padding:10px}
+.master-chip{font-size:10px;padding:8px 7px}
+.master-toolbar{margin:9px 0 0;gap:5px}
+.project-hero .player-caption{font-size:10px}
+}
 </style><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></head><body>
 <header class="project-header"><div><div class="brand">CTRLstudio / ADGM PROJECT</div><h1>Abu Dhabi — architektura i symulacja 3D</h1><div class="sub">01 Al Maryah Island / 02 Marina Square / 03 Shams Abu Dhabi / 04 Najmat Abu Dhabi</div></div><div class="meta">22.10.2026 &nbsp; | &nbsp; PROJEKT 3D<br>4 strefy &middot; 27 obiektów referencyjnych</div></header>
 <nav class="site-tabs project-nav" aria-label="Główne sekcje projektu ADGM">
-<a class="active" href="./index.html" aria-current="page">◈ &nbsp; Projekt ADGM</a>
-<a href="#atlas">◫ &nbsp; Mapa i budynki</a>
-<a href="./schemat3d.html">▤ &nbsp; Symulacja na pełnym ekranie</a>
-<a href="./island3d.html">▥ &nbsp; Modele poszczególnych obiektów</a>
-<a href="./research.html">▦ &nbsp; Research i plan</a>
+<a class="active" href="./index.html" aria-current="page">◈ Projekt ADGM</a>
+<a href="#atlas">◫ Mapa i budynki</a>
+<a href="./schemat3d.html">▤ Widok 3D</a>
+<a href="./research.html">▦ Research i plan</a>
 </nav>
-<section class="project-hero" aria-label="Główna wizualizacja projektu">
+<section class="project-hero" aria-label="Interaktywny masterplan ADGM">
 <div class="project-hero-inner">
-  <div class="project-topline"><div>
-    <div class="overline">CTRLSTUDIO / 3D MASTERPLAN / LIVE PREVIS</div>
-    <h2>Cały obszar — interaktywna makieta 3D</h2>
-    <p>Przelot nad dzielnicą · podgląd czterech stref · złota godzina · swobodny obrót kamery</p>
-  </div><div class="hero-links">
-    <a href="./schemat3d.html" target="_blank" rel="noopener noreferrer">⛶ Otwórz symulację na całym ekranie</a>
-    <a href="#atlas">↓ Zobacz mapę i budynki</a>
-  </div></div>
-  <div class="project-player"><iframe src="./schemat3d.html?embed=1" title="ADGM — pełna interaktywna symulacja 3D czterech stref" loading="eager" allow="fullscreen" allowfullscreen></iframe></div>
-  <div class="player-caption"><span><strong>Interakcja:</strong> przeciągnij myszą, przybliżaj kółkiem, klikaj strefy lub uruchom przelot wewnątrz okna.</span><span>Model filmowy poglądowy — budynki i geometria wymagają weryfikacji GIS.</span></div>
-</div></section>
+  <div class="project-topline">
+    <div><div class="overline">CTRLSTUDIO / ADGM / MASTERPLAN 2026</div>
+      <h2>ADGM — cztery strefy. Jeden obraz.</h2>
+      <p>Zaakceptowana wizualizacja · interaktywne zbliżenia · przelot kamery w 2.5D</p>
+    </div>
+    <div class="hero-links">
+      <button type="button" id="tour-toggle" class="hero-action hero-play" aria-pressed="false">▶ Animuj przelot</button>
+      <button type="button" id="master-reset" class="hero-action">↺ Cały widok</button>
+      <a href="./schemat3d.html" class="hero-action">◈ Makieta 3D ↗</a>
+    </div>
+  </div>
+  <div class="project-player master-visual" id="master-visual" data-active="all">
+    <div class="master-transform" id="master-transform">
+      <img id="master-image" alt="Zaakceptowana przez CTRLstudio wizualizacja ADGM z czterema podświetlonymi strefami: Al Maryah Island, Marina Square, Shams Abu Dhabi i Najmat Abu Dhabi" width="1672" height="941" draggable="false"/>
+      <button class="master-hotspot" type="button" data-master-zone="M" aria-label="Przybliż strefę 01 — Al Maryah Island" style="left:23.9%;top:37.5%"></button>
+      <button class="master-hotspot" type="button" data-master-zone="T" aria-label="Przybliż strefę 02 — Marina Square" style="left:50%;top:52.5%"></button>
+      <button class="master-hotspot" type="button" data-master-zone="S" aria-label="Przybliż strefę 03 — Shams Abu Dhabi" style="left:58%;top:31%"></button>
+      <button class="master-hotspot" type="button" data-master-zone="N" aria-label="Przybliż strefę 04 — Najmat Abu Dhabi" style="left:67%;top:66%"></button>
+    </div>
+    <div class="master-image-status" id="master-status" role="status">ŁADOWANIE MASTERPLANU…</div>
+  </div>
+  <div class="master-toolbar" role="group" aria-label="Wybierz strefę na masterplanie">
+    <button data-master-zone="all" class="master-chip on" type="button" aria-pressed="true">◈ Cały plan</button>
+    <button data-master-zone="M" class="master-chip" type="button" aria-pressed="false"><span>01</span> Al Maryah Island</button>
+    <button data-master-zone="T" class="master-chip" type="button" aria-pressed="false"><span>02</span> Marina Square</button>
+    <button data-master-zone="S" class="master-chip" type="button" aria-pressed="false"><span>03</span> Shams Abu Dhabi</button>
+    <button data-master-zone="N" class="master-chip" type="button" aria-pressed="false"><span>04</span> Najmat Abu Dhabi</button>
+  </div>
+  <div class="player-caption">
+    <span><strong>Praca z mapą:</strong> wybierz strefę lub rozpocznij automatyczny przelot. Przy zbliżeniu możesz przeciągnąć obraz myszą.</span>
+    <span>Wizualizacja koncepcyjna CGI — nie jest geodezyjną mapą budynków.</span>
+  </div>
+</div>
+</section>
 <section class="atlas-heading" id="atlas"><div class="atlas-heading-inner">
   <div class="kicker">ATLAS PROJEKTU · 4 STREFY · 27 POZYCJI</div>
   <h2>Mapa lokalizacji i referencje budynków</h2>
@@ -106,7 +175,7 @@ header.project-header{padding:14px 15px}.project-header h1{font-size:21px}
 <div class="intro"><strong>Atlas zdjęć i lokalizacji:</strong> Geografia rzeczywistych obiektów pozostaje bez zmian. Kliknij kod na mapie lub nazwę obiektu, aby zobaczyć analizę, referencje wyglądu i źródła. Znaczniki są orientacyjne; nie stanowią potwierdzonych obrysów ani gotowego modelu 3D.</div>
 <div class="toolbar"><button class="active" data-group="all">Cały zakres</button><button data-group="M">01 Al Maryah Island</button><button data-group="T">02 Marina Square</button><button data-group="S">03 Shams Abu Dhabi</button><button data-group="N">04 Najmat Abu Dhabi</button><input id="search" placeholder="Szukaj nazwy lub kodu..." aria-label="Szukaj obiektu"></div>
 <div class="workspace"><nav class="list" aria-label="Lista obiektów"><div class="listhead">OBIEKTY I STATUSY</div><div id="items"></div></nav>
-<section class="mapbox"><div class="mapcontrols"><button id="plus">Powiększ +</button><button id="minus">Oddal -</button><button id="reset">Cała mapa</button><button id="labels">Ukryj oznaczenia</button><button id="toggleModel" type="button" aria-pressed="false">▶ Symulacja 3D</button></div><svg id="map" class="map" viewBox="0 0 1183 1198" role="img" aria-label="Satelitarna mapa referencyjna z punktami obiektów"><image width="1183" height="1198" href="https://maps.wikimedia.org/img/osm-intl,13,24.493,54.407,1183x1198.png"/><g id="marks"></g></svg><iframe id="schematFrame" title="Symulacja trójwymiarowa schematycznego rzutu architektury Abu Dhabi" loading="lazy" allowfullscreen></iframe><div class="map-3d-note" id="map3dInfo">Nowy tryb: <strong>makieta 3D z przesłanego rzutu</strong>, przelot kamery i umowny ruch pojazdów. <a href="./schemat3d.html" target="_blank" rel="noopener">Otwórz na całym ekranie ↗</a></div><div class="mapnote">Przeciągnij mapę, użyj kółka myszy lub przycisków + / -. Kolor oznacza grupę w briefie, nie granicę dzielnicy. Horizon ma kod N04, ale stoi w City of Lights. Brak znacznika T03 oznacza nierozstrzygniętą nazwę, nie brak obiektu w terenie.</div></section>
+<section class="mapbox"><div class="mapcontrols"><button id="plus">Powiększ +</button><button id="minus">Oddal -</button><button id="reset">Cała mapa</button><button id="labels">Ukryj oznaczenia</button></div><svg id="map" class="map" viewBox="0 0 1183 1198" role="img" aria-label="Satelitarna mapa referencyjna z punktami obiektów"><image width="1183" height="1198" href="https://maps.wikimedia.org/img/osm-intl,13,24.493,54.407,1183x1198.png"/><g id="marks"></g></svg><div class="mapnote">Przeciągnij mapę, użyj kółka myszy lub przycisków + / -. Kolor oznacza grupę w briefie, nie granicę dzielnicy. Horizon ma kod N04, ale stoi w City of Lights. Brak znacznika T03 oznacza nierozstrzygniętą nazwę, nie brak obiektu w terenie.</div></section>
 <article class="card" id="card"></article></div>
 <section class="audit" id="audit"><h2>Strefa 04 — Najmat Abu Dhabi</h2><p>To zwykła część atlasu dla strefy 04, a nie osobny tryb kontroli. Poniżej znajdują się najważniejsze obiekty Najmat oraz mapa okolicy. Wybierz strefę 04, aby zobaczyć jej budynki i zdjęcia.</p><div class="auditgrid"><div><img src="https://maps.wikimedia.org/img/osm-intl,14,24.488,54.401,1183x700.png" alt="Najmat Abu Dhabi — mapa okolicy"><div class="small">Najmat Abu Dhabi — istniejące obiekty i nabrzeże. Lokalizacje pokazuje mapa, a nie wygenerowana wizualizacja.</div></div><div id="auditnotes"></div></div></section>
 <footer class="bottom"><strong>Granica wiarygodności tej wersji</strong><p id="limitations"></p><p id="medianote"></p><p id="datenote"></p><details><summary>Pełna lista źródeł i referencji</summary><div id="allsources" class="sourcegrid"></div></details><p>Materiał roboczy CTRLstudio. Podkład Google i fotografie zachowują prawa ich autorów. Zdjęcia zewnętrzne służą analizie, a nie stanowią pakietu do publikacji marketingowej.</p></footer>
@@ -128,4 +197,9 @@ function zoom(f,x=.5,y=.5){let [vx,vy,w,h]=view,nw=w*f,nh=h*f;if(nw<170||nw>2400
 document.querySelector('#plus').onclick=()=>zoom(.8);document.querySelector('#minus').onclick=()=>zoom(1.25);document.querySelector('#reset').onclick=()=>setview([0,0,1183,1198]);document.querySelector('#labels').onclick=e=>{showLabels=!showLabels;e.target.textContent=showLabels?'Ukryj oznaczenia':'Pokaż oznaczenia';render();};svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.12:.89)},{passive:false});let drag=null;svg.addEventListener('pointerdown',e=>{if(e.target.closest('.marker'))return;drag={x:e.clientX,y:e.clientY,v:view.slice()};svg.setPointerCapture(e.pointerId);svg.classList.add('dragging')});svg.addEventListener('pointermove',e=>{if(!drag)return;let r=svg.getBoundingClientRect(),s=Math.max(view[2]/r.width,view[3]/r.height);setview([drag.v[0]-(e.clientX-drag.x)*s,drag.v[1]-(e.clientY-drag.y)*s,drag.v[2],drag.v[3]])});function end(){drag=null;svg.classList.remove('dragging')}svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
 /* Zone 04 is accessed through the regular zone navigation; no separate audit control. */
 const audit=[["01","Reem Mall","Kompleks handlowy. Na mapie zaznaczona jest rzeczywista lokalizacja, a nie dodatkowe planowane wieże."],["02","Najmat waterfront","Nabrzeże i basen z kanałem. Zachowujemy istniejącą linię brzegową; nie dodajemy wymyślonych pomostów."],["03","The Wave","Budynek przy nabrzeżu. Sąsiedni DAMAC Marina Bay jest osobnym obiektem."],["04","Horizon Towers — poza Najmat","W pierwotnej liście był pod Najmat, lecz faktycznie znajduje się w City of Lights. Znacznik nie został przeniesiony."]];document.querySelector('#auditnotes').innerHTML=audit.map(a=>`<div class="auditentry"><strong>${a[0]} / ${esc(a[1])}</strong><span>${esc(a[2])}</span></div>`).join('');document.querySelector('#limitations').textContent=DATA.meta.coordinate_note+' '+DATA.meta.unresolved;document.querySelector('#medianote').textContent=DATA.meta.media_note;document.querySelector('#datenote').textContent=DATA.meta.date_note;document.querySelector('#allsources').innerHTML=Object.values(sources).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)} &#8599;</a>`).join('');select('M01');
-</script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="./enhance.js?v=3"></script><script src="./zones.js?v=1"></script><script src="./map-3d-toggle.js?v=1"></script></body></html>
+</script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="./enhance.js?v=3"></script><script src="./zones.js?v=1"></script><script src="./assets/adgm_master_part1.js?v=3"></script>
+<script src="./assets/adgm_master_part2.js?v=3"></script>
+<script src="./assets/adgm_master_part3.js?v=3"></script>
+<script src="./assets/adgm_master_part4.js?v=3"></script>
+<script src="./assets/adgm-master.js?v=3"></script>
+<script src="./assets/master-ui.js?v=3"></script></body></html>
