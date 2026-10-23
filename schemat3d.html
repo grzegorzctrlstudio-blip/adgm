@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="pl"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07182a"><meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#07182a">
+<link rel="preload" href="./assets/adgm-master-hq.avif?v=4" as="image" type="image/avif"><meta name="robots" content="noindex,nofollow">
 <meta name="description" content="CTRLstudio ADGM — panoramiczny, interaktywny model 3D całego obszaru, filmowy przelot i widok budynków. Rekonstrukcja koncepcyjna.">
 <title>CTRLstudio ADGM | Symulacja 3D z rzutu</title>
 <style>
@@ -49,9 +50,28 @@ canvas#scene{width:100%;height:100%;display:block;touch-action:none;cursor:grab;
 @media(max-width:900px){.top{left:11px;right:11px;top:11px}.brand{padding:11px 12px}.brand h1{font-size:16px}.zones{left:10px;top:auto;bottom:146px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(340px,calc(100% - 20px));gap:5px}.zone{padding:7px;min-height:38px;font-size:11px}.zone span{width:23px;height:23px}.bottom{bottom:8px;left:10px;right:10px}.telemetry{display:none}.legend{max-width:none}.hint{top:100px;right:11px}.status{display:none}.top-actions .btn{padding:8px 9px;font-size:11px}}
 @media(max-width:530px){.app{min-height:560px}.hint,.frame-full{display:none}.top{flex-wrap:wrap}.top-actions{justify-content:flex-start}.brand{max-width:none;width:100%}.hint{top:202px}.zones{bottom:139px;width:calc(100% - 20px)}.legend{font-size:10px;padding:8px 10px}.legend p{font-size:10px}}
 body.embed .brand-links{display:none}body.embed .frame-full{display:none}body.embed .brand{max-width:270px}body.embed .brand h1{font-size:16px}body.embed .top{top:9px;left:9px;right:9px}body.embed .zones{top:118px;left:9px;width:165px}body.embed .legend{max-width:350px}body.embed .telemetry{display:none}
+
+/* Full-resolution approved ADGM masterplan: default view keeps artwork unobstructed. */
+#still{image-rendering:auto;transform-origin:0 0;transition:transform 2.2s cubic-bezier(.22,.64,.14,1)}
+.app.reference-mode{background:#071a2f}
+.app.reference-mode #still{z-index:2;display:block;pointer-events:none;object-fit:contain}
+.app.reference-mode canvas#scene{opacity:0;pointer-events:none}
+.app.reference-mode .brand,.app.reference-mode .zones,.app.reference-mode .bottom,
+.app.reference-mode .hint,.app.reference-mode .status,.app.reference-mode .frame-full,
+.app.reference-mode .splash{display:none!important}
+.app.reference-mode .top{left:auto;right:16px;top:16px;justify-content:flex-end;width:auto}
+.app.reference-mode .top-actions{gap:7px;flex-wrap:wrap;max-width:min(660px,calc(100vw - 24px));justify-content:flex-end}
+.app.reference-mode #top,.app.reference-mode #overview,.app.reference-mode #speed,.app.reference-mode #light{display:none}
+.app.reference-mode .btn{background:#092d4ccf;border:1px solid #6ba5db98;box-shadow:0 6px 18px #06162560}
+.app.reference-mode #play{background:#2469a8ef;border-color:#84c8fa}
+.app.reference-mode #play.on{background:#117883ed;border-color:#74e3e0}
+.ref-hud{position:absolute;z-index:5;right:16px;bottom:15px;padding:9px 13px;pointer-events:none;background:#08243ccc;border:1px solid #518cb878;border-radius:9px;color:#d2eafa;font-weight:750;letter-spacing:.09em;font-size:10px}
+.app:not(.reference-mode) .ref-hud{display:none}
+@media(max-width:720px){.app.reference-mode .top{right:9px;top:9px}.ref-hud{right:8px;bottom:8px;font-size:9px}.app.reference-mode .btn{font-size:10px;padding:8px}}
+
 </style></head>
-<body><script>if(new URLSearchParams(location.search).get('embed')==='1')document.body.classList.add('embed');</script><main class="app" id="app">
-<img id="still" alt="Uproszczony podkład z dostarczonego rzutu dzielnicy" />
+<body><script>if(new URLSearchParams(location.search).get('embed')==='1')document.body.classList.add('embed');</script><main class="app reference-mode" id="app">
+<img id="still" alt="ADGM — pełna zaakceptowana wizualizacja czterech stref, 1672 na 941 pikseli" width="1672" height="941" fetchpriority="high" decoding="async" />
 <canvas id="scene" aria-label="Obracany model 3D wykonany na podstawie przesłanego schematu"></canvas>
 <div class="splash" id="splash"><span>INICJALIZACJA SCENY 3D / CTRLstudio</span></div>
 <div class="top"><div class="brand"><div class="eyebrow">CTRLstudio / ADGM / CINEMATIC PREVIS</div><h1>ADGM · Interaktywny masterplan</h1><p>Nowy rzut referencyjny · widok 2.5D · opcjonalny blockout 3D</p>
@@ -62,9 +82,9 @@ body.embed .brand-links{display:none}body.embed .frame-full{display:none}body.em
 <a href="./research.html">▦ Research</a>
 </nav></div>
 <div class="top-actions">
-<button type="button" class="btn primary" id="play" aria-pressed="false">▶ Przelot 3D</button>
+<button type="button" class="btn primary" id="play" aria-pressed="false">▶ Animuj przelot</button>
 <button type="button" class="btn" id="top">⊞ Rzut z góry</button>
-<button type="button" class="btn" id="reference" aria-pressed="true">◈ Włącz model 3D</button>
+<button type="button" class="btn" id="reference" aria-pressed="true">▥ Zobacz makietę 3D</button>
 <button type="button" class="btn" id="overview">◈ Panorama</button>
 <button type="button" class="btn" id="speed">Prędkość 1×</button>
 <button type="button" class="btn" id="light">☀ Złota godzina</button>
@@ -79,17 +99,13 @@ body.embed .brand-links{display:none}body.embed .frame-full{display:none}body.em
 </div>
 <div class="hint">Przeciągnij: obrót &nbsp; · &nbsp; Scroll: zbliżenie</div>
 <div class="status" id="renderstate">MODEL POGŁĄDOWY / NIE GIS</div>
-<div class="frame-full" id="fullMapStatus">CAŁY OBSZAR / FREE ORBIT 360°</div>
+<div class="frame-full" id="fullMapStatus">CAŁY OBSZAR / FREE ORBIT 360°</div><div class="ref-hud" id="refHud">MASTERPLAN CGI · 1672 × 941 · CZTERY STREFY</div>
 <div class="bottom"><div class="legend"><strong>ADGM · zaakceptowana grafika główna / opcjonalna makieta 3D</strong>
 <p>Układ pochodzi z przesłanego obrazu. Budynki, wysokości, strefy i ruch są <b>przybliżone</b>. Bryły ustawione na podstawie widocznych zespołów na poprawionym rzucie. Cienie, woda i elewacje są symulowane. <b>To nadal nie jest model geodezyjny ani hiperrealistyczny skan.</b></p></div>
 <div class="telemetry">TRYB: <b id="mode">ORBIT / MANUAL</b><br>STREFA: <b id="zoneName">WSZYSTKIE</b><br>RUCH: <b>SYMULOWANY</b><br>BRYŁY: <b id="buildings">—</b></div>
 </div>
 </main>
-<script src="./assets/adgm_master_part1.js?v=3"></script>
-<script src="./assets/adgm_master_part2.js?v=3"></script>
-<script src="./assets/adgm_master_part3.js?v=3"></script>
-<script src="./assets/adgm_master_part4.js?v=3"></script>
-<script src="./assets/adgm-master.js?v=3"></script>
+<script src="./assets/adgm-master.js?v=4"></script>
 <script>document.querySelector('#still').src=window.CTRL_ADGM_PLAN||'';window.__ADGM_SCHEMAT_READY=false;setTimeout(function(){if(!window.__ADGM_SCHEMAT_READY){document.querySelector('#splash').classList.add('fade');document.querySelector('#renderstate').textContent='PODGLĄD 2D / BRAK WEBGL';const pic=document.querySelector('#still');pic.style.animation='idle-map 16s ease-in-out infinite alternate';const style=document.createElement('style');style.textContent='@keyframes idle-map{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.22) translate(-2%,1%)}}';document.head.appendChild(style);document.querySelector('#play').textContent='Podgląd 2D / brak WebGL';}},6000);</script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <script src="./realism.js?v=1"></script>
