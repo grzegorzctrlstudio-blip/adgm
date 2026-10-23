@@ -152,10 +152,20 @@ function updateLedIntro(){
 }
 function cameraTo(id){
  const scene=$('led-scene');
+ scene.classList.toggle('idle',!id);
  if(!id){scene.style.transform='translate3d(0,0,0) scale(1)';return;}
  const z=Z[id],sc=z.zoom;
  const offX=(.5-z.x*sc)*100,offY=(.5-z.y*sc)*100;
  scene.style.transform='translate3d('+offX.toFixed(3)+'%,'+offY.toFixed(3)+'%,0) scale('+sc+')';
+}
+function tabletCameraTo(id){
+ const scene=$('tablet-visual');
+ if(!id){scene.style.transform='translate3d(0,0,0) scale(1)';return;}
+ // Tablet stays top-down (PDF p.10); subtle zoom keeps all zones legible.
+ const focus={M:[.315,.45],T:[.46,.585],S:[.615,.4],N:[.715,.82]}[id];
+ const sc=1.17;
+ const x=(.5-focus[0]*sc)*100,y=(.5-focus[1]*sc)*100;
+ scene.style.transform='translate3d('+x.toFixed(3)+'%,'+y.toFixed(3)+'%,0) scale('+sc+')';
 }
 function clearTimers(){if(phaseTimeout){clearTimeout(phaseTimeout);phaseTimeout=null;}}
 function selectZone(id,{automatic=false}={}){
@@ -166,7 +176,7 @@ function selectZone(id,{automatic=false}={}){
  state.zone=id;state.category=null;state.building=null;
  setStep('navigate');updateTopStatus();updatePaths();
  hidePins();$('led-reveal').classList.remove('visible');
- buildPins();cameraTo(id);renderZoneControls();updateLedIntro();
+ buildPins();cameraTo(id);tabletCameraTo(id);renderZoneControls();updateLedIntro();
  $('led-status').textContent='LED CAMERA / TRAVEL TO '+Z[id].num;
  $('ipad-view-wall').textContent='PRZEJŚCIE KAMERY…';
  focusing=true;
@@ -188,7 +198,7 @@ function reset({stopDemoAlso=true}={}){
  if(stopDemoAlso)stopDemo();
  clearTimers();transitionVersion++;
  state.zone=null;state.category=null;state.building=null;
- focusing=false;cameraTo(null);setStep('discover');
+ focusing=false;cameraTo(null);tabletCameraTo(null);setStep('discover');
  updatePaths();renderOverview();$('led-status').textContent='LED ↔ IPAD · IDLE';
  $('tour-beacon').style.opacity=0;
  $('led-demo-route').style.opacity=0;
