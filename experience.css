@@ -80,7 +80,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #b1ecff;outline-offset:3p
 .ipad-body{flex:1;min-height:0;display:grid;grid-template-columns:58% 42%;overflow:hidden}
 .map-pane{position:relative;background:linear-gradient(140deg,#071e4d,#010b24);overflow:hidden;border-right:1px solid #224970}
 .map-pane .map-visual{position:absolute;inset:0;overflow:hidden}
-.map-pane .map-visual img{width:100%;height:100%;object-fit:cover;opacity:.87;filter:saturate(1.3) brightness(.86)}
+.map-pane .map-visual img{width:100%;height:100%;object-fit:fill;opacity:.87;filter:saturate(1.3) brightness(.86)}
 .map-overlay{position:absolute;inset:0;width:100%;height:100%}
 .map-overlay .area{fill:#136dff;fill-opacity:.02;stroke:transparent;stroke-width:2.7;cursor:pointer;transition:fill-opacity .3s,stroke .3s}
 .map-overlay .area:hover,.map-overlay .area:focus{fill-opacity:.16;stroke:#9feaff;outline:none}
