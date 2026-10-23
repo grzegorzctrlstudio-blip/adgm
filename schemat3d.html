@@ -106,7 +106,8 @@ body.embed .brand-links{display:none}body.embed .frame-full{display:none}body.em
 </div>
 </main>
 <script src="./assets/adgm-master.js?v=4"></script>
-<script>document.querySelector('#still').src=window.CTRL_ADGM_PLAN||'';window.__ADGM_SCHEMAT_READY=false;setTimeout(function(){if(!window.__ADGM_SCHEMAT_READY){document.querySelector('#splash').classList.add('fade');document.querySelector('#renderstate').textContent='PODGLĄD 2D / BRAK WEBGL';const pic=document.querySelector('#still');pic.style.animation='idle-map 16s ease-in-out infinite alternate';const style=document.createElement('style');style.textContent='@keyframes idle-map{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.22) translate(-2%,1%)}}';document.head.appendChild(style);document.querySelector('#play').textContent='Podgląd 2D / brak WebGL';}},6000);</script>
+<script src="./assets/reference-tour.js?v=4"></script>
+<script>document.querySelector('#still').src=window.CTRL_ADGM_PLAN||'';window.__ADGM_SCHEMAT_READY=false;setTimeout(function(){if(!window.__ADGM_SCHEMAT_READY){document.querySelector('#splash').classList.add('fade');document.querySelector('#renderstate').textContent='PODGLĄD 2D / BRAK WEBGL';document.querySelector('#play').textContent='▶ Animuj przelot';}},6000);</script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <script src="./realism.js?v=1"></script>
 <script type="module">
@@ -293,7 +294,7 @@ function updatePlay(){
 window.addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.type==='ctrl-adgm-pause'){playing=false;updatePlay();}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){playing=false;updatePlay();}});
 $('play').addEventListener('click',()=>{
- if(sourceVisible)toggleReference(false);
+ if(sourceVisible)return; // Reference mode is handled by reference-tour.js in capture phase.
  playing=!playing;tween=null;
  if(playing){flightStart=performance.now();flightSegment=-1;}
  updatePlay();
@@ -306,20 +307,25 @@ $('light').addEventListener('click',()=>{const evening=realism.toggleLight();$('
 let sourceVisible=true;
 const originalPhoto=$('still');
 function toggleReference(next){
+ window.CTRL_ADGM_REF_TOUR?.stop();
  sourceVisible=next;
+ app.classList.toggle('reference-mode',next);
  if(next){
    playing=false;tween=null;updatePlay();
    originalPhoto.classList.remove('hide');
    originalPhoto.style.opacity='1';originalPhoto.style.objectFit='contain';
-   originalPhoto.style.transform='none';originalPhoto.style.filter='none';
+   originalPhoto.style.filter='none';
+   window.CTRL_ADGM_REF_TOUR?.reset();
+   $('play').textContent='▶ Animuj przelot';
    canvas.style.opacity='0';canvas.style.pointerEvents='none';
    $('mode').textContent='REFERENCJA 2D';$('renderstate').textContent='RZUT REFERENCYJNY / NIE GIS';
  }else{
    originalPhoto.classList.add('hide');
    canvas.style.opacity='1';canvas.style.pointerEvents='auto';
+   $('play').textContent='▶ Rozpocznij przelot';
    $('mode').textContent='ORBIT / MANUAL';$('renderstate').textContent='SCHEMATYCZNY MODEL 3D';
  }
- $('reference').textContent=next?'◈ Powrót do 3D':'▣ Pokaż rzut źródłowy';
+ $('reference').textContent=next?'▥ Zobacz makietę 3D':'▣ Wróć do grafiki HQ';
  $('reference').setAttribute('aria-pressed',String(next));
 }
 $('reference').addEventListener('click',()=>toggleReference(!sourceVisible));
