@@ -8,8 +8,8 @@
 :root{color-scheme:dark;--glass:#0b1d30df;--line:#6284a75f;--txt:#eef6ff;--mute:#a6bfd5;--blue:#66b8ff}
 *{box-sizing:border-box}html,body{height:100%;margin:0;background:#061624;color:var(--txt);font:13px/1.45 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 button{font:inherit;cursor:pointer}.app{position:relative;min-height:650px;height:100vh;height:100dvh;overflow:hidden;background:radial-gradient(circle at 50% 35%,#11344a,#061624 68%)}
-canvas#scene{width:100%;height:100%;display:block;touch-action:none;cursor:grab;position:absolute;inset:0;z-index:1}
-#still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.07) saturate(1.06);opacity:.62;z-index:0;transform:scale(1.03)}
+canvas#scene{width:100%;height:100%;display:block;touch-action:none;cursor:grab;position:absolute;inset:0;z-index:1;opacity:0}
+#still{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:none;opacity:1;z-index:0;transform:none;background:#071c30}
 #still.hide{display:none}
 .top{position:absolute;left:20px;right:20px;top:18px;z-index:4;display:flex;align-items:flex-start;gap:12px;justify-content:space-between;pointer-events:none}
 .top>*{pointer-events:auto}
@@ -54,17 +54,17 @@ body.embed .brand-links{display:none}body.embed .frame-full{display:none}body.em
 <img id="still" alt="Uproszczony podkład z dostarczonego rzutu dzielnicy" />
 <canvas id="scene" aria-label="Obracany model 3D wykonany na podstawie przesłanego schematu"></canvas>
 <div class="splash" id="splash"><span>INICJALIZACJA SCENY 3D / CTRLstudio</span></div>
-<div class="top"><div class="brand"><div class="eyebrow">CTRLstudio / ADGM / CINEMATIC PREVIS</div><h1>Architektura · symulacja filmowa 3D</h1><p>Fasady szklane · cienie · refleksy wody · filmowy przelot</p>
+<div class="top"><div class="brand"><div class="eyebrow">CTRLstudio / ADGM / CINEMATIC PREVIS</div><h1>ADGM · Interaktywny masterplan</h1><p>Nowy rzut referencyjny · widok 2.5D · opcjonalny blockout 3D</p>
 <nav class="brand-links" aria-label="Nawigacja po ADGM">
-<a class="current" href="./index.html" aria-current="page">◈ Pełny widok 3D</a>
+<a class="current" href="./index.html" aria-current="page">◈ Projekt ADGM</a>
 <a href="./atlas.html">◫ Mapa / budynki</a>
 <a href="./island3d.html">▥ Model obiektów</a>
 <a href="./research.html">▦ Research</a>
 </nav></div>
 <div class="top-actions">
-<button type="button" class="btn primary" id="play" aria-pressed="false">▶ Rozpocznij przelot</button>
+<button type="button" class="btn primary" id="play" aria-pressed="false">▶ Przelot 3D</button>
 <button type="button" class="btn" id="top">⊞ Rzut z góry</button>
-<button type="button" class="btn" id="reference" aria-pressed="false">▣ Pokaż rzut źródłowy</button>
+<button type="button" class="btn" id="reference" aria-pressed="true">◈ Włącz model 3D</button>
 <button type="button" class="btn" id="overview">◈ Panorama</button>
 <button type="button" class="btn" id="speed">Prędkość 1×</button>
 <button type="button" class="btn" id="light">☀ Złota godzina</button>
@@ -80,12 +80,16 @@ body.embed .brand-links{display:none}body.embed .frame-full{display:none}body.em
 <div class="hint">Przeciągnij: obrót &nbsp; · &nbsp; Scroll: zbliżenie</div>
 <div class="status" id="renderstate">MODEL POGŁĄDOWY / NIE GIS</div>
 <div class="frame-full" id="fullMapStatus">CAŁY OBSZAR / FREE ORBIT 360°</div>
-<div class="bottom"><div class="legend"><strong>PREVIS CINEMATIC · materiały PBR + oświetlenie fizyczne</strong>
+<div class="bottom"><div class="legend"><strong>ADGM · zaakceptowana grafika główna / opcjonalna makieta 3D</strong>
 <p>Układ pochodzi z przesłanego obrazu. Budynki, wysokości, strefy i ruch są <b>przybliżone</b>. Bryły ustawione na podstawie widocznych zespołów na poprawionym rzucie. Cienie, woda i elewacje są symulowane. <b>To nadal nie jest model geodezyjny ani hiperrealistyczny skan.</b></p></div>
 <div class="telemetry">TRYB: <b id="mode">ORBIT / MANUAL</b><br>STREFA: <b id="zoneName">WSZYSTKIE</b><br>RUCH: <b>SYMULOWANY</b><br>BRYŁY: <b id="buildings">—</b></div>
 </div>
 </main>
-<script src="./schemat-plan.js?v=2"></script>
+<script src="./assets/adgm_master_part1.js?v=3"></script>
+<script src="./assets/adgm_master_part2.js?v=3"></script>
+<script src="./assets/adgm_master_part3.js?v=3"></script>
+<script src="./assets/adgm_master_part4.js?v=3"></script>
+<script src="./assets/adgm-master.js?v=3"></script>
 <script>document.querySelector('#still').src=window.CTRL_ADGM_PLAN||'';window.__ADGM_SCHEMAT_READY=false;setTimeout(function(){if(!window.__ADGM_SCHEMAT_READY){document.querySelector('#splash').classList.add('fade');document.querySelector('#renderstate').textContent='PODGLĄD 2D / BRAK WEBGL';const pic=document.querySelector('#still');pic.style.animation='idle-map 16s ease-in-out infinite alternate';const style=document.createElement('style');style.textContent='@keyframes idle-map{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.22) translate(-2%,1%)}}';document.head.appendChild(style);document.querySelector('#play').textContent='Podgląd 2D / brak WebGL';}},6000);</script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <script src="./realism.js?v=1"></script>
@@ -107,7 +111,7 @@ camera.position.set(72,106,127);
 const controls=new OrbitControls(camera,canvas);
 controls.enableDamping=true;controls.dampingFactor=.075;controls.maxPolarAngle=Math.PI*.48;
 controls.minDistance=7;controls.maxDistance=1200;controls.target.set(0,0,0);controls.update();
-const W=206,H=107.6;
+const W=206,H=115.875;
 function overviewPose(){
  const fov=THREE.MathUtils.degToRad(camera.fov);
  const horizontal=2*Math.atan(Math.tan(fov/2)*Math.max(.3,camera.aspect));
@@ -283,7 +287,7 @@ $('overview').addEventListener('click',()=>goZone('all'));
 $('top').addEventListener('click',()=>{playing=false;updatePlay();tween=null;mark('all');cameraTo(topPose(),new THREE.Vector3(0,0,0),1300);});
 $('speed').addEventListener('click',()=>{speed=speed===1?1.5:speed===1.5?2:.5; $('speed').textContent='Prędkość '+speed+'×';});
 $('light').addEventListener('click',()=>{const evening=realism.toggleLight();$('light').textContent=evening?'◐ Światło dzienne':'☀ Złota godzina';});
-let sourceVisible=false;
+let sourceVisible=true;
 const originalPhoto=$('still');
 function toggleReference(next){
  sourceVisible=next;
@@ -344,6 +348,6 @@ function frame(t){
  controls.update();renderer.render(scene,camera);
  if(first){first=false;window.__ADGM_SCHEMAT_READY=true;if(!sourceVisible)$('still').classList.add('hide');$('splash').classList.add('fade');$('renderstate').textContent='WEBGL 3D / OBRAZ REFERENCYJNY';setTimeout(()=>$('splash').remove(),850);}
 }
-mark('all');requestAnimationFrame(frame);
+mark('all');toggleReference(true);requestAnimationFrame(frame);
 }catch(err){console.error('Schemat WebGL unavailable',err);document.querySelector('#renderstate').textContent='PODGLĄD 2D / WEBGL NIEDOSTĘPNE';}
 </script></body></html>
