@@ -4,71 +4,81 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#071522">
-<title>CTRLstudio · ADGM | Interaktywny model 3D</title>
-<meta name="description" content="Interaktywny, roboczy model 3D czterech stref ADGM: wybór stref, budynków, widoków kamery i opisów.">
+<meta name="theme-color" content="#071827">
+<title>CTRLstudio | ADGM — interaktywna symulacja i trasa przelotu</title>
+<meta name="description" content="ADGM Abu Dhabi: widok 2.5D i jeden prowadzony przelot przez cztery strefy. Interaktywny atlas 27 obiektów i szczegóły budynków.">
+<link rel="preload" href="./assets/adgm-master-hq.avif?v=5" as="image" type="image/avif">
 <link rel="stylesheet" href="./island3d.css?v=2">
+<link rel="stylesheet" href="./island3d-sim.css?v=1">
 </head>
 <body>
 <header class="site-header">
-  <div class="identity"><a class="brand" href="./index.html" aria-label="CTRLstudio — główna symulacja 3D">CTRL<span>studio</span></a><span class="brand-separator"></span><span class="product-name">ADGM <strong>3D SIMULATOR</strong></span></div>
-  <nav class="header-nav" aria-label="Sekcje projektu"><a href="./index.html">Pełny widok</a><a href="./atlas.html">Atlas budynków</a><a class="active" href="./island3d.html" aria-current="page">Model obiektów</a><a href="./research.html">Research</a></nav>
-  <div class="header-right"><span class="live-dot"></span><span>BLOCKOUT / WERSJA ROBOCZA</span></div>
+  <div class="identity"><a class="brand" href="./index.html" aria-label="CTRLstudio — projekt ADGM">CTRL<span>studio</span></a><span class="brand-separator"></span><span class="product-name">ADGM <strong>FLIGHT SIMULATION</strong></span></div>
+  <nav class="header-nav" aria-label="Nawigacja projektu"><a href="./index.html">Masterplan</a><a class="active" href="./island3d.html" aria-current="page">Symulacja</a><a href="./atlas.html">Atlas budynków</a><a href="./research.html">Research</a></nav>
+  <div class="header-right"><span class="live-dot"></span><span>2.5D PREVIS / MODEL POGLĄDOWY</span></div>
 </header>
 <main class="workspace">
-  <aside class="sidebar" id="sidebar" aria-label="Wybór strefy i budynku">
+  <aside class="sidebar" id="sidebar" aria-label="Wybór stref i budynków">
     <div class="sidebar-head">
-      <div class="kicker">NAWIGACJA PROJEKTU <span>01 / 04</span></div>
-      <h1>Wybierz strefę</h1>
-      <p>Kliknij obszar, aby przenieść kamerę. Następnie wybierz budynek z listy lub bezpośrednio na modelu.</p>
+      <div class="kicker">ŚCIEŻKA RUCHU <span>01 → 04</span></div>
+      <h1>Strefy projektu</h1>
+      <p>Wybierz strefę, a później konkretny budynek. Lub uruchom jeden przelot, który przejdzie kolejno przez cały obszar.</p>
     </div>
-    <div class="zone-list" id="zone-list" aria-label="Cztery strefy projektu"></div>
+    <div class="zone-list" id="zone-list" aria-label="Strefy ADGM"></div>
     <div class="sidebar-divider"></div>
-    <div class="building-heading"><div><div class="kicker">KROK 02 / 04</div><h2 id="building-list-title">Wszystkie obiekty</h2></div><span class="counter" id="building-counter">27</span></div>
+    <div class="building-heading"><div><div class="kicker">BUDYNKI / WYBRANA STREFA</div><h2 id="building-list-title">Najpierw wybierz strefę</h2></div><span class="counter" id="building-counter">—</span></div>
     <label class="searchbox"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4.5 4.5"/></svg><input id="building-search-3d" type="search" autocomplete="off" placeholder="Znajdź budynek..." aria-label="Wyszukaj budynek"></label>
     <div class="building-list" id="building-list"></div>
-    <div class="sidebar-footer"><span class="legend-line"><i class="legend-square"></i> Bryły i wysokości poglądowe</span><span class="legend-line"><i class="legend-circle"></i> Punkty z atlasu / lokalizacje robocze</span><p>Nie jest to model geodezyjny ani gotowa rekonstrukcja architektury. Pozycje części obiektów wymagają potwierdzenia.</p></div>
+    <div class="sidebar-footer">
+      <span class="legend-line"><i class="legend-square"></i> Grafika CGI zaakceptowana przez CTRLstudio</span>
+      <p>Ruch kamery jest symulacją 2.5D; to nie nawigacja po geodezyjnym modelu 3D. Pozycje i bryły budynków nadal wymagają weryfikacji.</p>
+    </div>
   </aside>
-
-  <section class="viewport" id="viewport" aria-label="Interaktywna scena 3D">
-    <div class="scene" id="scene" role="img" aria-label="Trójwymiarowa, obracana scena Al Maryah Island i Al Reem Island z modelami budynków"></div>
-    <div class="labels-layer" id="labels-layer" aria-hidden="false"></div>
-    <div class="loading" id="loading"><div class="loading-orbit"><div></div></div><div class="loading-title">Budowanie modelu 3D</div><div class="loading-sub">Geometria wysp · 27 obiektów · 4 strefy</div></div>
-
-    <div class="stage-top-left"><div class="scene-kicker"><span class="pulse"></span> INTERACTIVE MASTER SCENE <span class="scene-kicker-sep">/</span> UE PREVIS</div><h2 id="scene-heading">Al Maryah + Al Reem</h2><p id="scene-subtitle">4 strefy · 27 obiektów · model koncepcyjny</p></div>
+  <section class="viewport" id="viewport" aria-label="Interaktywna mapa i trasa kamery">
+    <div class="scene aerial-stage" id="scene" aria-label="Zaakceptowana, kolorowa mapa ADGM z podświetlonymi strefami i trasą przelotu">
+      <div class="aerial-canvas" id="aerial-canvas">
+        <img class="aerial-photo" id="aerial-photo" src="./assets/adgm-master-hq.avif?v=5" width="1672" height="941" alt="Mapa 3D ADGM z czterema strefami: Al Maryah Island, Marina Square, Shams Abu Dhabi i Najmat Abu Dhabi" draggable="false">
+        <svg class="aerial-route" viewBox="0 0 1672 941" aria-hidden="true">
+          <path class="route-glow" d="M 402 365 C 555 454 697 510 840 494 C 935 471 1015 385 970 309 C 947 435 1053 558 1124 622"/>
+          <path class="route-stroke" id="flight-path" d="M 402 365 C 555 454 697 510 840 494 C 935 471 1015 385 970 309 C 947 435 1053 558 1124 622"/>
+          <circle id="route-marker-halo" class="route-halo" cx="402" cy="365" r="10"/>
+          <circle id="route-marker" class="route-marker" cx="402" cy="365" r="5"/>
+        </svg>
+        <button type="button" class="aerial-hotspot" data-map-zone="M" style="left:24.1%;top:39%" aria-label="Pokaż Al Maryah Island"></button>
+        <button type="button" class="aerial-hotspot" data-map-zone="T" style="left:50.7%;top:52.5%" aria-label="Pokaż Marina Square"></button>
+        <button type="button" class="aerial-hotspot" data-map-zone="S" style="left:57.8%;top:33%" aria-label="Pokaż Shams Abu Dhabi"></button>
+        <button type="button" class="aerial-hotspot" data-map-zone="N" style="left:66.4%;top:66.2%" aria-label="Pokaż Najmat Abu Dhabi"></button>
+      </div>
+    </div>
+    <div class="stage-top-left"><div class="scene-kicker"><span class="pulse"></span> CTRLSTUDIO / ADGM <span class="scene-kicker-sep">/</span> 2.5D PREVIS</div><h2 id="scene-heading">ADGM · Al Maryah + Al Reem</h2><p id="scene-subtitle">Cztery strefy, jedna trasa kamery</p></div>
     <div class="stage-top-right">
-      <button class="tool-btn mobile-menu" id="mobile-menu" type="button" aria-label="Otwórz listę stref">☰ <span>Strefy</span></button>
-      <button class="tool-btn" id="overview-btn" type="button" title="Pokaż całą wyspę">↗ <span>Cały obszar</span></button>
-      <button class="tool-btn" id="demo-btn" type="button" title="Automatyczny przelot przez strefy">▶ <span>Demo</span></button>
-      <button class="tool-btn icon-only" id="capture-btn" type="button" title="Zapisz aktualny kadr PNG" aria-label="Zapisz kadr PNG">▣</button>
+      <button class="tool-btn mobile-menu" id="mobile-menu" type="button" aria-label="Otwórz strefy">☰ <span>Strefy</span></button>
+      <button class="tool-btn" id="overview-btn" type="button" title="Cały obszar">◈ <span>Cały obszar</span></button>
+      <button class="tool-btn" id="demo-btn" type="button" aria-pressed="false" title="Rozpocznij przelot przez 4 strefy">▶ <span>Uruchom przelot</span></button>
       <button class="tool-btn icon-only" id="fullscreen-btn" type="button" title="Pełny ekran" aria-label="Pełny ekran">⛶</button>
     </div>
-
-    <div class="scene-badge"><span class="badge-icon">◆</span><div><strong>MODEL ROBOCZY</strong><small>Geometria schematyczna · nie GIS</small></div></div>
-    <div class="compass" id="compass" aria-label="Kompas północy"><span>N</span><div class="compass-arrow">↑</div></div>
-    <div class="scene-tooltip" id="scene-tooltip" hidden></div>
-
-    <div class="bottom-controls">
-      <div class="view-bar" role="group" aria-label="Gotowe ustawienia kamery">
-        <span class="view-label">KAMERA <b>03 / 04</b></span>
-        <button class="view-btn active" type="button" data-view="overview">◈ <span>Panorama</span></button>
-        <button class="view-btn" type="button" data-view="top">⊞ <span>Rzut z góry</span></button>
-        <button class="view-btn" type="button" data-view="shams">▤ <span>Shams / skyline</span></button>
-        <button class="view-btn" type="button" data-view="waterfront">≋ <span>Waterfront</span></button>
-        <button class="view-btn" type="button" data-view="selected">◎ <span>Wybrany obiekt</span></button>
+    <div class="stage-bottom">
+      <div class="flight-hud">
+        <div class="flight-hud-top"><span id="flight-status">TRASA 01 → 02 → 03 → 04</span><span id="flight-step">CAŁY OBSZAR</span></div>
+        <div class="flight-progress"><span id="flight-progress"></span></div>
+        <div class="flight-route-stops"><span data-route-step="M">01 · Al Maryah</span><span data-route-step="T">02 · Marina</span><span data-route-step="S">03 · Shams</span><span data-route-step="N">04 · Najmat</span></div>
       </div>
-      <div class="bottom-hint"><span>↔ Przeciągnij: obrót</span><span>⇅ Scroll / gest: zoom</span><span>⇧ Prawy przycisk: przesuwanie</span></div>
+      <div class="stage-legend">Przeciągnij: przesuwanie · Scroll: zbliżenie · Przelot: ruch po wyznaczonej trasie</div>
     </div>
   </section>
-
-  <aside class="detail-panel" id="detail-panel" aria-label="Opis wybranego obiektu">
+  <aside class="detail-panel" id="detail-panel" aria-label="Informacje o strefie lub wybranym budynku">
     <div class="detail-empty" id="detail-empty">
-      <div class="detail-kicker">KROK 04 / 04</div>
-      <div class="detail-illustration"><span>▥</span><span>▤</span><span>▥</span></div>
-      <h2>Informacje o budynku</h2>
-      <p>Wybierz strefę, a następnie kliknij jedną z brył 3D albo nazwę budynku na liście.</p>
-      <div class="empty-steps"><div><b>01</b> Wybór strefy</div><div><b>02</b> Wybór budynku</div><div><b>03</b> Ustawienie kamery</div><div><b>04</b> Opis i parametry</div></div>
-      <div class="tip"><strong>Przykład:</strong> Shams Abu Dhabi → Gate Towers → zbliżenie → opis trzech wież i skybridge.</div>
+      <div class="detail-kicker">TRASA KAMERY / 4 PUNKTY</div>
+      <h2>Przelot nad ADGM</h2>
+      <p>Kamera przesuwa się po zatwierdzonym rzucie. Możesz zatrzymać przelot i wybrać strefę albo budynek z lewej listy.</p>
+      <div class="detail-route"><h3>Kolejność przelotu</h3>
+        <div class="detail-route-step"><b>01</b> Al Maryah Island</div>
+        <div class="detail-route-step"><b>02</b> Marina Square</div>
+        <div class="detail-route-step"><b>03</b> Shams Abu Dhabi</div>
+        <div class="detail-route-step"><b>04</b> Najmat Abu Dhabi</div>
+      </div>
+      <p class="detail-tip" id="detail-route-current">Wybierz strefę lub uruchom przelot</p>
+      <p class="model-disclaimer">To animacja kamery 2.5D na obrazie CGI. Nie zastępuje docelowej sceny Unreal Engine ani rekonstrukcji GIS.</p>
     </div>
     <div class="detail-content" id="detail-content" hidden>
       <div class="detail-top"><div class="detail-kicker" id="detail-zone">STREFA 03 / SHAMS</div><button type="button" class="detail-close" id="detail-close" title="Zamknij opis" aria-label="Zamknij opis">×</button></div>
@@ -89,24 +99,11 @@
       <div class="detail-links" id="detail-links"></div>
       <button class="detail-focus" type="button" id="detail-focus">◎ &nbsp; Pokaż zbliżenie 3D</button>
     </div>
+  
   </aside>
 </main>
-<script src="./research-data.js?v=2"></script>
-<script src="./island3d-fallback.js?v=2"></script>
-<script>
-/* Safari / iOS fallback: if the WebGL renderer fails to paint, launch the Canvas 3D viewer. */
-window.__ADGM_START_WATCHDOG=setTimeout(function(){
-  if(!window.__ADGM_FALLBACK_RUNNING && !document.querySelector('#loading.ready')){
-    window.ADGMFallback?.start('WebGL start timeout');
-  }
-},7000);
-</script>
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
-<script type="module">
-import("./island3d.js?v=2").catch(err=>{
-  console.error("ADGM WebGL renderer failed; launching Canvas 3D compatibility mode:",err);
-  window.ADGMFallback?.start(err?.message||"Module import failed");
-});
-</script>
+<script>if(new URLSearchParams(location.search).get('embed')==='1')document.body.classList.add('embed');</script>
+<script src="./research-data.js?v=3"></script>
+<script src="./island3d-sim.js?v=1"></script>
 </body>
 </html>
