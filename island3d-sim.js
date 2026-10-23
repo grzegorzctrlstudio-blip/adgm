@@ -9,7 +9,7 @@ const data=window.ADGM_RESEARCH;
 if(!data?.buildings?.length){document.body.classList.add('data-error');$('scene-subtitle').textContent='Nie udało się załadować inwentaryzacji budynków';return;}
 const stage=$('scene'),viewport=$('viewport'),canvas=$('aerial-canvas'),photo=$('aerial-photo');
 const zoneList=$('zone-list'),buildingList=$('building-list'),search=$('building-search-3d');
-const path=$('flight-path'),dot=$('route-marker');
+const path=$('flight-path'),dot=$('route-marker'),halo=$('route-marker-halo');
 const status=$('flight-status'),stepLabel=$('flight-step'),progress=$('flight-progress');
 const Z={
  all:{name:'Cały obszar',x:.50,y:.50,z:1},
@@ -185,6 +185,7 @@ function animate(t){
    const len=path.getTotalLength(),ratio=k===0?0:k===4?1:(k-1+smooth)/3;
    const p=path.getPointAtLength(len*bounds(ratio,0,1));
    dot.setAttribute('cx',p.x.toFixed(1));dot.setAttribute('cy',p.y.toFixed(1));
+   halo?.setAttribute('cx',p.x.toFixed(1));halo?.setAttribute('cy',p.y.toFixed(1));
   }
  }else if(flight){
   let k=ease((t-flight.start)/flight.duration);
