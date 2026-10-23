@@ -7,8 +7,8 @@
 <meta name="robots" content="noindex,nofollow">
 <title>CTRLstudio | ADGM — LED Wall + iPad Experience Simulator</title>
 <meta name="description" content="ADGM Permanent Installation — symulacja zsynchronizowanej ściany LED i interfejsu iPad zgodnie z User Journey SBE.">
-<link rel="preload" as="image" href="./assets/adgm-led-clean-v7.avif" type="image/avif">
-<link rel="stylesheet" href="./experience.css?v=1">
+<link rel="preload" as="image" href="./assets/adgm-led-clean-hq-v8.avif" type="image/avif">
+<link rel="stylesheet" href="./experience.css?v=4">
 </head>
 <body>
 <header class="site-head">
@@ -32,7 +32,7 @@
   <section id="led-frame" class="led-frame" aria-label="Ekran LED ADGM">
     <div class="led-screen" id="led-screen">
       <div id="led-scene" class="led-scene">
-        <img id="led-photo" class="led-photo" src="./assets/adgm-led-clean-v7.avif" width="1536" height="852"
+        <img id="led-photo" class="led-photo" src="./assets/adgm-led-clean-hq-v8.avif" width="1536" height="852"
              alt="Poprawiona wizualizacja lotnicza ADGM otrzymana od CTRLstudio, bez błędnie naniesionych stref" draggable="false">
         <div class="led-shade"></div>
         <svg class="led-map" viewBox="0 0 1536 852" preserveAspectRatio="none" aria-hidden="true">
@@ -42,6 +42,7 @@
             <circle id="tour-beacon" r="9" cx="499" cy="342" fill="#f3ffff" stroke="#22a9ff" stroke-width="4" style="opacity:0;filter:drop-shadow(0 0 9px #5eeaff)"></circle>
           </g>
         </svg>
+        <div class="led-region-labels" id="led-region-labels" aria-label="Strefy na perspektywicznym rzucie"></div>
         <div class="led-marker-layer" id="led-marker-layer" aria-label="Hotspoty budynków na LED"></div>
       </div>
       <div class="led-top">
@@ -77,6 +78,11 @@
       <span class="step" data-step="explore">04 EXPLORE</span><span class="connector"></span>
       <span class="step" data-step="continue">05 CONTINUE</span>
     </div>
+    <div class="led-actions">
+      <button id="tour-button" type="button">▶ Przelot demonstracyjny</button>
+      <button id="map-reset" type="button">↺ Cały obszar</button>
+      <button id="fullscreen-led" type="button" title="LED na pełnym ekranie" aria-label="Pełny ekran LED">⛶ LED</button>
+    </div>
     <div class="status-led"><i></i><span id="experience-stage">KROK 1 / 5 · DISCOVER</span></div>
   </div>
   <section class="ipad-area" id="ipad-controller" aria-label="Kontroler iPad ADGM">
@@ -93,14 +99,14 @@
         <div class="ipad-body">
           <div class="map-pane" aria-label="Mapa referencyjna czterech stref">
             <div id="tablet-visual" class="map-visual">
-              <img id="tablet-map-image" src="./assets/adgm-ipad-approved-zones.svg?v=1" width="518" height="366"
+              <img id="tablet-map-image" src="./assets/adgm-topview-approved-v7.avif" width="518" height="366"
                 alt="Zatwierdzona referencyjna mapa SBE: Al Maryah Island, Marina Square, Shams Abu Dhabi i Najmat Abu Dhabi" draggable="false">
               <svg id="tablet-svg" class="map-overlay" viewBox="0 0 518 366" preserveAspectRatio="none" aria-label="Wybór stref z prawidłowych obrysów SBE">
                 <g id="tablet-area-paths"></g>
                 <g id="tablet-marker-points"></g>
               </svg>
             </div>
-            <div class="map-note" id="geo-honesty">Prawidłowe strefy wg top-view z briefu SBE</div>
+            <div class="map-note" id="geo-honesty">Prawidłowe granice na iPadzie wg zatwierdzonego rzutu SBE</div>
           </div>
           <div class="ipad-panel">
             <div class="ipad-panel-top">
@@ -126,14 +132,8 @@
     <span><a href="./atlas.html">27 obiektów w atlasie ↗</a> &nbsp;·&nbsp; <a href="./research.html">Źródła i plan produkcji ↗</a></span>
   </div>
 </main>
-<!-- Floating controls: accessible by keyboard, positioned beside stage via CSS -->
-<div style="position:fixed;bottom:14px;right:14px;z-index:50;display:flex;gap:7px">
-  <button id="tour-button" type="button" style="background:#16639d;color:white;border:1px solid #68b5e6;border-radius:8px;padding:9px 12px;font-size:11px;font-weight:800;box-shadow:0 5px 25px #0009">▶ Demo przelot</button>
-  <button id="map-reset" type="button" style="background:#0c2d49;color:white;border:1px solid #356787;border-radius:8px;padding:9px 12px;font-size:11px;font-weight:800;box-shadow:0 5px 25px #0009">↺ Full Map</button>
-  <button id="fullscreen-led" type="button" title="LED na pełnym ekranie" aria-label="Pełny ekran LED" style="background:#0c2d49;color:white;border:1px solid #356787;border-radius:8px;padding:9px 12px;font-size:11px;font-weight:800;box-shadow:0 5px 25px #0009">⛶ LED</button>
-</div>
 <script src="./research-data.js?v=1"></script>
-<script src="./experience-data.js?v=1"></script>
-<script src="./experience.js?v=1"></script>
+<script src="./experience-data.js?v=4"></script>
+<script src="./experience.js?v=4"></script>
 </body>
 </html>
