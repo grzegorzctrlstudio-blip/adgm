@@ -25,9 +25,7 @@ window.ADGM_EXPERIENCE={
       tabletPath:'M 196 179 L 215 176 L 243 182 L 262 190 L 265 219 L 273 243 L 245 252 L 213 245 L 194 239 Z',
       ledPath:'M 661 454 C 704 444 772 448 814 452 L 874 463 C 900 471 927 470 951 487 L 939 552 C 904 564 872 577 824 573 L 752 571 L 685 552 L 647 524 C 636 497 644 471 661 454 Z',
       markers:[
-        {code:'T01',x:51.5,y:62.4,caption:'Marina Square'},
-        {code:'T02',x:61.0,y:60.2,caption:'Addax Tower*'},
-        {code:'T03',x:55.3,y:53.6,caption:'Retail cluster*'}
+        {code:'T01',x:51.5,y:62.4,caption:'Marina Square'}
       ]
     },
     S:{
@@ -50,9 +48,8 @@ window.ADGM_EXPERIENCE={
       tabletPath:'M 306 232 C 322 238 345 246 380 251 L 427 253 C 449 266 449 287 450 312 C 452 343 441 363 422 365 L 393 357 C 362 350 338 335 315 319 C 294 305 272 296 260 280 C 274 268 286 250 306 232 Z',
       ledPath:'M 951 511 C 1002 509 1060 519 1110 520 L 1190 534 C 1244 543 1298 548 1319 579 L 1321 627 C 1307 653 1283 685 1224 706 L 1140 701 C 1087 694 1035 679 991 647 C 957 631 936 602 924 570 C 924 541 933 519 951 511 Z',
       markers:[
-        {code:'N01',x:71.1,y:60.9,caption:'Reem Mall*'},
         {code:'N02',x:63.1,y:79.3,caption:'Najmat waterfront'},
-        {code:'N03',x:79.7,y:68,caption:'The Wave*'}
+        {code:'N03',x:79.7,y:68,caption:'The Wave (position indicative)'}
       ]
     }
   },
