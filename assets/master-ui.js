@@ -26,9 +26,10 @@
   const order=['all','M','S','T','N','all'];
   const buttons=[...document.querySelectorAll('[data-master-zone]')];
   function fit(dx,dy,scale){
-    const bound=(scale-1)*50;
-    panX=Math.max(-bound,Math.min(bound,dx));
-    panY=Math.max(-bound,Math.min(bound,dy));
+    // No blank gutters when panning zoomed imagery.
+    const min=(1-scale)*100;
+    panX=Math.max(min,Math.min(0,dx));
+    panY=Math.max(min,Math.min(0,dy));
     stage.style.transform='translate('+panX+'%,'+panY+'%) scale('+scale+')';
   }
   function select(id,manual=true){
