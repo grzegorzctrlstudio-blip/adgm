@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="./assets/adgm-master-hq.avif?v=4" as="image" type="image/avif">
 <title>CTRLstudio | ADGM — Model 3D, strefy i mapa projektu</title>
 <style>
 :root{--navy:#152534;--ink:#1b2c40;--muted:#647386;--border:#dce2e9;--paper:#f2f4f7;--gold:#be9641}
@@ -146,7 +147,7 @@ header.project-header{padding:14px 15px}.project-header h1{font-size:21px}
   </div>
   <div class="project-player master-visual" id="master-visual" data-active="all">
     <div class="master-transform" id="master-transform">
-      <img id="master-image" alt="Zaakceptowana przez CTRLstudio wizualizacja ADGM z czterema podświetlonymi strefami: Al Maryah Island, Marina Square, Shams Abu Dhabi i Najmat Abu Dhabi" width="1672" height="941" draggable="false"/>
+      <img id="master-image" alt="Zaakceptowana przez CTRLstudio wizualizacja ADGM z czterema podświetlonymi strefami: Al Maryah Island, Marina Square, Shams Abu Dhabi i Najmat Abu Dhabi" width="1672" height="941" decoding="async" fetchpriority="high" draggable="false"/>
       <button class="master-hotspot" type="button" data-master-zone="M" aria-label="Przybliż strefę 01 — Al Maryah Island" style="left:23.9%;top:37.5%"></button>
       <button class="master-hotspot" type="button" data-master-zone="T" aria-label="Przybliż strefę 02 — Marina Square" style="left:50%;top:52.5%"></button>
       <button class="master-hotspot" type="button" data-master-zone="S" aria-label="Przybliż strefę 03 — Shams Abu Dhabi" style="left:58%;top:31%"></button>
@@ -197,9 +198,5 @@ function zoom(f,x=.5,y=.5){let [vx,vy,w,h]=view,nw=w*f,nh=h*f;if(nw<170||nw>2400
 document.querySelector('#plus').onclick=()=>zoom(.8);document.querySelector('#minus').onclick=()=>zoom(1.25);document.querySelector('#reset').onclick=()=>setview([0,0,1183,1198]);document.querySelector('#labels').onclick=e=>{showLabels=!showLabels;e.target.textContent=showLabels?'Ukryj oznaczenia':'Pokaż oznaczenia';render();};svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.12:.89)},{passive:false});let drag=null;svg.addEventListener('pointerdown',e=>{if(e.target.closest('.marker'))return;drag={x:e.clientX,y:e.clientY,v:view.slice()};svg.setPointerCapture(e.pointerId);svg.classList.add('dragging')});svg.addEventListener('pointermove',e=>{if(!drag)return;let r=svg.getBoundingClientRect(),s=Math.max(view[2]/r.width,view[3]/r.height);setview([drag.v[0]-(e.clientX-drag.x)*s,drag.v[1]-(e.clientY-drag.y)*s,drag.v[2],drag.v[3]])});function end(){drag=null;svg.classList.remove('dragging')}svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
 /* Zone 04 is accessed through the regular zone navigation; no separate audit control. */
 const audit=[["01","Reem Mall","Kompleks handlowy. Na mapie zaznaczona jest rzeczywista lokalizacja, a nie dodatkowe planowane wieże."],["02","Najmat waterfront","Nabrzeże i basen z kanałem. Zachowujemy istniejącą linię brzegową; nie dodajemy wymyślonych pomostów."],["03","The Wave","Budynek przy nabrzeżu. Sąsiedni DAMAC Marina Bay jest osobnym obiektem."],["04","Horizon Towers — poza Najmat","W pierwotnej liście był pod Najmat, lecz faktycznie znajduje się w City of Lights. Znacznik nie został przeniesiony."]];document.querySelector('#auditnotes').innerHTML=audit.map(a=>`<div class="auditentry"><strong>${a[0]} / ${esc(a[1])}</strong><span>${esc(a[2])}</span></div>`).join('');document.querySelector('#limitations').textContent=DATA.meta.coordinate_note+' '+DATA.meta.unresolved;document.querySelector('#medianote').textContent=DATA.meta.media_note;document.querySelector('#datenote').textContent=DATA.meta.date_note;document.querySelector('#allsources').innerHTML=Object.values(sources).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)} &#8599;</a>`).join('');select('M01');
-</script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="./enhance.js?v=3"></script><script src="./zones.js?v=1"></script><script src="./assets/adgm_master_part1.js?v=3"></script>
-<script src="./assets/adgm_master_part2.js?v=3"></script>
-<script src="./assets/adgm_master_part3.js?v=3"></script>
-<script src="./assets/adgm_master_part4.js?v=3"></script>
-<script src="./assets/adgm-master.js?v=3"></script>
-<script src="./assets/master-ui.js?v=3"></script></body></html>
+</script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="./enhance.js?v=3"></script><script src="./zones.js?v=1"></script><script src="./assets/adgm-master.js?v=4"></script>
+<script src="./assets/master-ui.js?v=4"></script></body></html>
