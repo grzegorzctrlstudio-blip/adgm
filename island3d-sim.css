@@ -1,0 +1,94 @@
+
+/* CTRLstudio ADGM — unified simulator / one visual master and one guided flight */
+:root{--accent:#64c8ff}
+body{overflow:hidden}
+.workspace{grid-template-columns:286px minmax(0,1fr) 292px}
+.site-header{background:#081827}
+.identity .product-name strong{color:#bcdbf3}
+.viewport{background:radial-gradient(ellipse at 45% 47%,#20445b 0%,#081b2c 74%);}
+.viewport:before{content:"";position:absolute;inset:-35px;background-image:linear-gradient(#00182a3d,#00182a3d),url("./assets/adgm-master-hq.avif?v=5");background-size:cover;background-position:center;filter:blur(28px) brightness(.42);pointer-events:none}
+.aerial-stage{position:absolute;inset:0;overflow:hidden;cursor:grab;touch-action:none;user-select:none;z-index:1}
+.aerial-stage.dragging{cursor:grabbing}
+.aerial-canvas{position:absolute;left:0;top:0;width:100px;height:100px;transform-origin:50% 50%;will-change:transform;pointer-events:auto}
+.aerial-photo{width:100%;height:100%;object-fit:fill;display:block;user-select:none;-webkit-user-drag:none;max-width:none}
+.aerial-route{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;opacity:.87}
+.route-glow{fill:none;stroke:#0a8cff;stroke-width:9;stroke-opacity:.25;filter:blur(5px)}
+.route-stroke{fill:none;stroke:#a1f4ff;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:11 13;filter:drop-shadow(0 0 5px #21a9ff)}
+.route-halo{fill:#29cbff;fill-opacity:.14;stroke:#69e4ff;stroke-width:2}
+.route-marker{fill:#fff;stroke:#48d8ff;stroke-width:3;filter:drop-shadow(0 0 8px #45deff)}
+.aerial-hotspot{position:absolute;width:clamp(27px,4vw,52px);height:clamp(27px,4vw,52px);border:1px solid transparent;border-radius:100%;background:transparent;transform:translate(-50%,-50%);cursor:pointer;padding:0}
+.aerial-hotspot:hover,.aerial-hotspot:focus-visible{border-color:#9dedff;box-shadow:0 0 0 8px #1c85db36,0 0 20px #22aaff;outline:none;background:#147bca24}
+.aerial-hotspot.is-active{border-color:#9ddfff9a;box-shadow:0 0 0 4px #3d9eea2b}
+.stage-top-left{z-index:3;top:20px;left:22px;max-width:47%;background:linear-gradient(90deg,#071d2ee3,#071d2e00);border-radius:8px;padding:9px 16px 11px 10px}
+.stage-top-left h2{margin:6px 0 4px;font-size:clamp(17px,1.6vw,23px)}
+.stage-top-left p{font-size:10px;color:#bbd2e3}
+.stage-top-right{z-index:4;top:18px;right:18px}
+.tool-btn{background:#07253ddf;backdrop-filter:blur(10px);border-color:#5b839a9c}
+.tool-btn.active{background:#126f94;border-color:#7fe9ff}
+.stage-bottom{position:absolute;z-index:3;bottom:13px;left:17px;right:17px;display:flex;align-items:flex-end;justify-content:space-between;gap:15px;pointer-events:none}
+.stage-bottom>*{pointer-events:auto}
+.flight-hud{background:#061e32eb;color:#e6f3fc;border:1px solid #4c809e90;border-radius:10px;padding:10px 13px;box-shadow:0 6px 24px #0016;min-width:min(410px,100%)}
+.flight-hud-top{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#c6dfee;font-size:10px;font-weight:780;letter-spacing:.06em}
+.flight-hud-top span:last-child{color:#71d4ff}
+.flight-progress{margin-top:9px;height:3px;background:#294d65;overflow:hidden;border-radius:3px}
+.flight-progress>span{display:block;width:0%;height:100%;background:linear-gradient(90deg,#1883d4,#8cefff);transition:width .1s linear}
+.flight-route-stops{display:flex;align-items:center;gap:6px;margin-top:9px}
+.flight-route-stops span{flex:1;text-align:center;color:#7698b1;font-size:9px;font-weight:850;border:1px solid #375d7580;padding:4px 2px;border-radius:5px}
+.flight-route-stops span.current{color:#e8faff;border-color:#72d8ff;background:#215b7b}
+.stage-legend{color:#d9e8f3;font-size:10px;background:#071c2dc9;border:1px solid #3e617b90;border-radius:7px;padding:8px 10px;max-width:245px;text-align:right}
+.sidebar-head{padding:20px 18px 14px}
+.sidebar-head h1{font-size:21px;margin:8px 0}
+.sidebar-head p{line-height:1.55}
+.zone-list{padding:0 12px;gap:6px}
+.zone-item{padding:10px;grid-template-columns:34px 1fr 10px}
+.zone-item .zone-num{font-size:19px}
+.sidebar-divider{margin:16px 18px}
+.building-heading{padding:0 17px 10px}
+.building-item{padding:8px 7px}
+.building-item .building-symbol{width:28px;height:28px}
+.building-list{padding:0 12px 12px}
+.building-item{grid-template-columns:29px 1fr 12px}
+.sidebar-footer{padding:13px 17px}
+.sidebar-footer p{margin:6px 0 0}
+.detail-empty{padding:29px 22px}
+.detail-empty h2{font-size:20px}
+.detail-empty p{line-height:1.65}
+.detail-route{margin:20px 0;padding:14px;border:1px solid #325e7d;background:#102e48;border-radius:9px}
+.detail-route h3{margin:0 0 12px;color:#84caff;letter-spacing:.08em;font-size:10px}
+.detail-route-step{display:flex;align-items:center;gap:10px;padding:8px 0;color:#b8d2e6;font-size:11px;border-bottom:1px solid #244862}
+.detail-route-step:last-child{border-bottom:none}
+.detail-route-step b{display:grid;place-items:center;background:#235274;color:#d4f1ff;border-radius:5px;min-width:26px;height:26px;font-size:10px}
+.detail-route-step.active{color:#fff}
+.detail-route-step.active b{background:#1687b3}
+.detail-tip{color:#8bb8d6;font-size:11px;line-height:1.6}
+.detail-content{padding:20px 19px}
+.detail-hero{height:95px}
+.detail-model-icon{font-size:74px}
+.model-disclaimer{color:#9db5c9;font-size:10px;line-height:1.45}
+@media(max-width:1240px){.workspace{grid-template-columns:265px minmax(0,1fr) 270px}.stage-legend{display:none}}
+@media(max-width:1010px){.workspace{grid-template-columns:250px minmax(0,1fr)}.detail-panel{display:none}.detail-panel.show{display:block}}
+@media(max-width:720px){
+  .workspace{display:block}
+  .stage-top-left{left:8px;top:11px;max-width:58%;padding:6px 8px}
+  .stage-top-left h2{font-size:16px}
+  .stage-top-right{right:7px;top:10px;gap:5px}
+  .tool-btn{width:33px;height:33px;padding:5px;font-size:16px}
+  .stage-bottom{left:8px;right:8px;bottom:8px}
+  .flight-hud{padding:8px;min-width:0;width:100%}
+  .flight-hud-top{font-size:9px}
+  .flight-route-stops span{font-size:8px}
+  .stage-legend{display:none}
+  .sidebar{z-index:20}
+  .detail-panel{z-index:18;bottom:99px}
+}
+body.embed .site-header,body.embed .sidebar,body.embed .detail-panel{display:none!important}
+body.embed .workspace{display:block;height:100dvh;min-height:0;overflow:hidden}
+body.embed .viewport{position:absolute;inset:0}
+body.embed .stage-top-left{top:9px;left:12px}
+body.embed .stage-top-right{top:10px;right:10px}
+body.embed .stage-bottom{bottom:10px}
+body.embed .stage-legend{display:none}
+body.embed .flight-hud{min-width:290px}
+body.embed .mobile-menu{display:none}
+body.embed .stage-top-right .tool-btn span{display:inline}
+@media(max-width:620px){body.embed .stage-top-left{max-width:45%}body.embed .stage-top-right .tool-btn span{display:none}}
