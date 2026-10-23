@@ -154,7 +154,7 @@ function cameraTo(id){
  const scene=$('led-scene');
  if(!id){scene.style.transform='translate3d(0,0,0) scale(1)';return;}
  const z=Z[id],sc=z.zoom;
- const offX=(.5-z.x)*100*sc,offY=(.5-z.y)*100*sc;
+ const offX=(.5-z.x*sc)*100,offY=(.5-z.y*sc)*100;
  scene.style.transform='translate3d('+offX.toFixed(3)+'%,'+offY.toFixed(3)+'%,0) scale('+sc+')';
 }
 function clearTimers(){if(phaseTimeout){clearTimeout(phaseTimeout);phaseTimeout=null;}}
@@ -243,8 +243,10 @@ function startDemo(){
   const id=ORDER[state.autostep%ORDER.length];
   selectZone(id,{automatic:true});
   state.autostep++;
-  if(state.autostep>ORDER.length){
-   stopDemo();reset({stopDemoAlso:false});
+  if(state.autostep>=ORDER.length){
+    // End with full-district view rather than restarting the first zone.
+    if(autoTimer){clearInterval(autoTimer);autoTimer=null;}
+    setTimeout(()=>{if(!state.demo)return;stopDemo();reset({stopDemoAlso:false});},5800);
   }
  };
  advance();autoTimer=setInterval(advance,6600);
