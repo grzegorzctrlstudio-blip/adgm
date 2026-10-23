@@ -92,3 +92,5 @@ body.embed .flight-hud{min-width:290px}
 body.embed .mobile-menu{display:none}
 body.embed .stage-top-right .tool-btn span{display:inline}
 @media(max-width:620px){body.embed .stage-top-left{max-width:45%}body.embed .stage-top-right .tool-btn span{display:none}}
+
+.image-error-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:8;background:#092f49f2;border:1px solid #82bce0;border-radius:10px;padding:24px;max-width:380px;color:#f1f7fd;text-align:center;font-size:13px;line-height:1.65}
