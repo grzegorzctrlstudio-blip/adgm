@@ -121,7 +121,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #b1ecff;outline-offset:3p
 /* SBE idle state and synchronized tablet area zoom */
 .led-scene.idle{animation:adgm-idle-flight 25s ease-in-out infinite alternate}
 @keyframes adgm-idle-flight{0%{transform:scale(1)}50%{transform:scale(1.045) translate(.5%,-.35%)}100%{transform:scale(1.075) translate(-.8%,.15%)}}
-.map-pane .map-visual{transform-origin:0 0;transition:transform 1800ms cubic-bezier(.16,.72,.17,1);will-change:transform}
+.map-pane .map-visual{transform-origin:50% 50%;transition:transform 1800ms cubic-bezier(.16,.72,.17,1);will-change:transform}
 
 /* Correct SBE top-view mapping: LED perspective district outlines and readable landmarks */
 .led-region-labels{position:absolute;inset:0;pointer-events:none;z-index:2}
