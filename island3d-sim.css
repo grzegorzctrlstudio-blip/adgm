@@ -9,8 +9,8 @@ body{overflow:hidden}
 .viewport:before{content:"";position:absolute;inset:-35px;background-image:linear-gradient(#00182a3d,#00182a3d),url("./assets/adgm-master-hq.avif?v=5");background-size:cover;background-position:center;filter:blur(28px) brightness(.42);pointer-events:none}
 .aerial-stage{position:absolute;inset:0;overflow:hidden;cursor:grab;touch-action:none;user-select:none;z-index:1}
 .aerial-stage.dragging{cursor:grabbing}
-.aerial-canvas{position:absolute;left:0;top:0;width:100px;height:100px;transform-origin:50% 50%;will-change:transform;pointer-events:auto}
-.aerial-photo{width:100%;height:100%;object-fit:fill;display:block;user-select:none;-webkit-user-drag:none;max-width:none}
+.aerial-canvas{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:50% 50%;will-change:transform;pointer-events:auto}
+.aerial-photo{width:100%;height:100%;object-fit:contain;display:block;user-select:none;-webkit-user-drag:none;max-width:none}
 .aerial-route{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;opacity:.87}
 .route-glow{fill:none;stroke:#0a8cff;stroke-width:9;stroke-opacity:.25;filter:blur(5px)}
 .route-stroke{fill:none;stroke:#a1f4ff;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:11 13;filter:drop-shadow(0 0 5px #21a9ff)}
