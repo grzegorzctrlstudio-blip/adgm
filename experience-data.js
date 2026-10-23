@@ -8,48 +8,51 @@ window.ADGM_EXPERIENCE={
     M:{
       num:'01',name:'Al Maryah Island',tagline:'Financial and business district',
       subtitle:'ADGM Square, offices, healthcare and retail',
-      x:.325,y:.402,zoom:1.68,color:'#6bd8ff',
-      tabletPath:'M 180 14 C 168 17 153 41 137 77 C 125 106 122 144 121 181 C 119 210 120 252 130 264 C 141 281 154 275 170 253 C 181 236 185 203 191 166 C 198 124 206 90 207 59 C 206 34 192 18 180 14 Z',
-      ledPath:'M 279 201 C 301 180 342 176 373 198 C 401 218 418 260 452 295 C 480 325 496 365 529 392 L 572 427 C 564 453 546 463 503 478 L 430 493 C 397 494 359 477 342 445 C 325 401 299 365 286 328 C 271 286 260 240 279 201 Z',
+      x:.307,y:.393,zoom:1.59,color:'#6bd8ff',
+      tabletPath:'M 169 8 C 178 12 182 22 178 31 C 170 45 162 58 160 77 C 159 96 158 117 155 134 C 151 155 150 176 144 193 C 139 206 132 212 126 207 C 113 195 109 177 108 157 C 107 135 113 118 121 106 C 121 83 122 66 131 47 C 139 29 152 17 169 8 Z',
+      ledPath:'M 240 179 C 272 161 299 173 333 184 C 367 197 394 226 418 248 C 456 267 489 304 512 345 C 535 381 555 405 583 448 C 569 475 544 493 507 510 C 466 516 421 516 384 503 C 339 482 300 449 278 406 C 251 358 231 305 222 263 C 220 226 227 195 240 179 Z',
       markers:[
-        {code:'M01',x:28.8,y:37,caption:'Al Sila Tower'},
-        {code:'M05',x:38.9,y:45.6,caption:'ADGM Headquarters'},
-        {code:'M07',x:34.8,y:55.2,caption:'The Galleria'},
-        {code:'M08',x:42.4,y:49,caption:'Cleveland Clinic'}
+        {code:'M01',x:26.7,y:36.8,caption:'Al Sila Tower'},
+        {code:'M02',x:29.6,y:43.1,caption:'Al Khatem Tower'},
+        {code:'M03',x:31.9,y:46,caption:'Al Sarab Tower'},
+        {code:'M07',x:34,y:54.6,caption:'The Galleria'}
       ]
     },
     T:{
       num:'02',name:'Marina Square',tagline:'Waterfront and mixed-use',
       subtitle:'Residential towers and waterfront destinations',
-      x:.532,y:.604,zoom:1.72,color:'#5ce8d6',
-      tabletPath:'M 196 179 L 215 176 L 243 182 L 262 190 L 265 219 L 273 243 L 245 252 L 213 245 L 194 239 Z',
-      ledPath:'M 661 454 C 704 444 772 448 814 452 L 874 463 C 900 471 927 470 951 487 L 939 552 C 904 564 872 577 824 573 L 752 571 L 685 552 L 647 524 C 636 497 644 471 661 454 Z',
+      x:.538,y:.625,zoom:1.66,color:'#5ce8d6',
+      tabletPath:'M 199 144 C 207 145 220 148 229 150 L 245 144 C 253 147 260 150 261 161 L 262 187 C 264 197 261 214 251 220 C 230 208 216 204 198 202 Z',
+      ledPath:'M 644 446 C 693 434 727 435 762 443 C 797 448 820 456 846 468 C 875 461 919 459 955 480 C 988 493 1010 522 1020 558 L 997 615 C 983 645 941 670 914 680 C 866 691 805 699 755 693 C 699 673 665 646 642 600 L 625 549 C 622 498 629 463 644 446 Z',
       markers:[
-        {code:'T01',x:51.5,y:62.4,caption:'Marina Square'}
+        {code:'T01',x:48,y:65,caption:'Marina Square'},
+        {code:'T02',x:59.2,y:59,caption:'Addax Tower (kontekst)'},
+        {code:'T03',x:53.4,y:56.8,caption:'Retail — do potwierdzenia'}
       ]
     },
     S:{
       num:'03',name:'Shams Abu Dhabi',tagline:'Northern district',
       subtitle:'Gate Towers, Sky/Sun and public destinations',
-      x:.620,y:.367,zoom:1.62,color:'#87adff',
-      tabletPath:'M 246 28 C 258 12 275 9 295 14 C 320 21 342 39 355 60 C 366 76 385 89 393 110 C 403 126 391 147 378 163 C 360 179 354 197 344 223 C 335 240 319 242 298 233 C 282 226 272 208 267 187 C 266 166 256 144 245 121 C 235 102 223 76 224 58 C 229 45 234 39 246 28 Z',
-      ledPath:'M 785 203 C 819 200 858 220 889 224 C 918 230 940 247 971 253 L 1043 262 C 1096 274 1156 291 1191 322 C 1210 344 1188 366 1150 381 L 1077 404 C 1028 402 997 414 950 402 L 899 425 C 865 423 839 406 805 393 C 778 370 760 341 750 309 C 744 265 757 221 785 203 Z',
+      x:.445,y:.305,zoom:1.57,color:'#87adff',
+      tabletPath:'M 250 14 C 267 7 281 10 298 16 C 320 23 330 37 340 48 C 358 61 377 76 383 88 C 384 99 373 113 361 119 C 347 122 337 134 331 150 C 322 168 324 179 308 194 C 294 204 278 210 268 200 C 261 187 260 165 253 152 C 243 132 237 118 230 92 C 223 75 221 59 230 44 C 238 30 236 24 250 14 Z',
+      ledPath:'M 416 108 C 459 84 514 74 560 72 C 621 69 697 79 743 88 C 785 94 814 113 831 147 L 829 193 C 815 219 804 253 806 283 C 820 315 844 349 854 376 C 844 401 817 414 784 421 C 744 410 719 389 693 366 C 657 344 638 318 615 284 C 583 253 570 228 538 213 C 491 203 453 194 427 176 C 409 154 409 132 416 108 Z',
       markers:[
-        {code:'S01',x:55.4,y:39.0,caption:'Gate Towers'},
-        {code:'S02',x:59.2,y:41.3,caption:'The Arc'},
-        {code:'S03',x:43.2,y:35.0,caption:'Sky Tower*'},
-        {code:'S07',x:72.5,y:34.0,caption:'Reem Central Park'}
+        {code:'S01',x:48.9,y:38,caption:'Gate Towers'},
+        {code:'S02',x:52.5,y:41.2,caption:'The Arc'},
+        {code:'S03',x:37.2,y:22.1,caption:'Sky Tower (pozycja poglądowa)'},
+        {code:'S04',x:41.1,y:26.7,caption:'Sun Tower (pozycja poglądowa)'}
       ]
     },
     N:{
       num:'04',name:'Najmat Abu Dhabi',tagline:'Southern waterfront',
       subtitle:'Waterfront development, mall and landmarks',
-      x:.716,y:.708,zoom:1.55,color:'#9ed9ff',
-      tabletPath:'M 306 232 C 322 238 345 246 380 251 L 427 253 C 449 266 449 287 450 312 C 452 343 441 363 422 365 L 393 357 C 362 350 338 335 315 319 C 294 305 272 296 260 280 C 274 268 286 250 306 232 Z',
-      ledPath:'M 951 511 C 1002 509 1060 519 1110 520 L 1190 534 C 1244 543 1298 548 1319 579 L 1321 627 C 1307 653 1283 685 1224 706 L 1140 701 C 1087 694 1035 679 991 647 C 957 631 936 602 924 570 C 924 541 933 519 951 511 Z',
+      x:.756,y:.681,zoom:1.53,color:'#9ed9ff',
+      tabletPath:'M 251 213 C 265 197 275 195 291 207 C 311 219 342 214 365 215 C 388 227 406 221 430 229 C 441 246 444 271 442 293 C 435 320 415 347 400 366 L 330 366 C 310 347 281 326 259 315 C 237 307 231 293 214 282 C 222 270 232 263 240 273 C 254 280 258 263 243 255 C 231 252 220 255 211 248 C 221 234 235 218 251 213 Z',
+      ledPath:'M 874 462 C 904 465 934 478 958 482 C 989 479 1031 487 1056 502 C 1087 500 1134 505 1175 514 C 1235 526 1301 528 1350 546 C 1390 562 1430 584 1456 615 C 1452 655 1444 703 1414 731 C 1368 750 1321 764 L 1236 758 C 1192 747 1143 736 1111 725 C 1062 718 1025 711 983 698 C 936 689 917 666 887 646 C 872 622 856 599 853 561 C 855 518 857 488 874 462 Z',
       markers:[
-        {code:'N02',x:63.1,y:79.3,caption:'Najmat waterfront'},
-        {code:'N03',x:79.7,y:68,caption:'The Wave (position indicative)'}
+        {code:'N01',x:72,y:63.2,caption:'Reem Mall — kontekst'},
+        {code:'N02',x:68,y:78,caption:'Najmat waterfront'},
+        {code:'N03',x:80.2,y:70.9,caption:'The Wave / Aabar'}
       ]
     }
   },
